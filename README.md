@@ -1,0 +1,1 @@
+Welcome to the official page of the *Summer School: Raum und Affekt*!
