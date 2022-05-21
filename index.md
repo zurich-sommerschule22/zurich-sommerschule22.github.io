@@ -7,11 +7,9 @@ title: home
 
 [home](index.md) | [people](people.md) | [corpus](corpus.md) | [resources](resources.md)
 
-# Summer School: Raum und Affekt - Zürich, 29-30 June 2022
-
 ## Welcome!
 
-This is the official page of the 2022 Summer School.
+This is the official page of the 2022 *Summer School: Raum und Affekt*.
 
 Here you can find [resources](resources.md) that will allow you to make the most of our summer school, as well as the [program](summer_school_program.md), and information on the [corpus](corpus.md) we will use in the several exercises and practice sessions that will be the core of the summer school.
 You will also find some recommended readings, which might give you an idea of what Digital Literary Studies are about.
