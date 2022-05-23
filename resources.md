@@ -15,6 +15,7 @@ title: resources
 
 ### Books
 - Egbert, J., Biber, D., & Gray, B. (2022). _Designing and Evaluating Language Corpora: A Practical Framework for Corpus Representativeness._ Cambridge: Cambridge University Press. doi:10.1017/9781316584880
+- Jockers, M. L., & Thalken, R. (2014). _Text analysis with R for students of literature_. Springer. 
 - Underwood, T. (2019). _Distant horizons: digital evidence and literary change._ University of Chicago Press.
 
 ### Papers
