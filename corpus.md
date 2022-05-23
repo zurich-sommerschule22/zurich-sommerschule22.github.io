@@ -16,213 +16,212 @@ The German part of the corpus, as well as 48 of the 111 novels in the Swiss sele
 
 The remaining Swiss novels have been gathered from the project [_High Mountains Low Arousal? Distant Reading Topographies of Sentiment in German Swiss Novels in the early 20th Century_](https://mountain-sentiment.github.io).
 
-|author                         |title                                                            | pub_date|collection |
-|:------------------------------|:----------------------------------------------------------------|--------:|:----------|
-|Albrecht Bernoulli, Carl       |Bürgerziel                                                       |     1922|CH         |
-|Albrecht Bernoulli, Carl       |Ull                                                              |     1931|CH         |
-|Arnim, Bettina von             |Clemens Brentanos Frühlingskranz                                 |     1959|DE         |
-|Arnim, Bettina von             |Die Günderode                                                    |     1959|DE         |
-|Aston, Louise                  |Aus dem Leben einer Frau                                         |     1847|DE         |
-|Aston, Louise                  |Lydia                                                            |     1848|DE         |
-|Auerbach, Berthold             |Barfüßele                                                        |     1857|DE         |
-|Auerbach, Berthold             |Der Lautenbacher                                                 |     1863|DE         |
-|Auerbach, Berthold             |Der Lehnhold                                                     |     1863|DE         |
-|Baerwart, Theobald             |Rosswiler Geschichten und anderes                                |     1918|CH         |
-|Bahr, Hermann                  |Die gute Schule                                                  |     1898|DE         |
-|Ball, Hugo                     |Flammetti                                                        |     1975|DE         |
-|Bleibtreu, Karl                |Größenwahn                                                       |     1888|DE         |
-|Bosshart, Jakob                |Ein Rufer in der Wüste                                           |     1921|CH         |
-|Boy-Ed, Ida                    |Fanny Förster                                                    |     1889|DE         |
-|Braun, Lily                    |Lebenssucher                                                     |     1922|DE         |
-|Castell, Alexander             |Fieber. Drei Novellen                                            |     1916|CH         |
-|Christ, Lena                   |Madam Bäurin                                                     |     1972|DE         |
-|Christ, Lena                   |Mathias Bichler                                                  |     1972|DE         |
-|Christen, Ada                  |Jungfer Mutter                                                   |     1964|DE         |
-|Christoph Heer, Jakob          |An heiligen Wassern                                              |     1898|CH         |
-|Christoph Heer, Jakob          |Der König der Bernina                                            |     1900|CH         |
-|Christoph Heer, Jakob          |Felix Notvest                                                    |     1901|CH         |
-|Christoph Heer, Jakob          |Der Wetterwart                                                   |     1905|CH         |
-|Christoph Heer, Jakob          |Laubgewind                                                       |     1908|CH         |
-|Christoph Heer, Jakob          |Der lange Balthasar                                              |     1915|CH         |
-|Christoph Heer, Jakob          |Tobias Heider                                                    |     1922|CH         |
-|Conradi, Hermann               |Adam Mensch                                                      |     1889|DE         |
-|Dahn, Felix                    |Kampf um Rom                                                     |     1876|DE         |
-|Diebold, Bernhard              |Italienische Suite                                               |     1939|CH         |
-|Dohm, Hedwig                   |Wie Frauen werden                                                |     1894|DE         |
-|Dohm, Hedwig                   |Sibilla Dalmar                                                   |     1897|DE         |
-|Dohm, Hedwig                   |Schicksale einer Seele                                           |     1899|DE         |
-|Ebner-Eschenbach, Marie von    |Bozena                                                           |     1956|DE         |
-|Ebner-Eschenbach, Marie von    |Lotti, die Uhrmacherin                                           |     1956|DE         |
-|Ebner-Eschenbach, Marie von    |Agave                                                            |     1903|DE         |
-|Essig, Hermann                 |Der Taifun                                                       |     1919|DE         |
-|Falke, Konrad                  |Der Kinderkreuzzug 1                                             |     1924|CH         |
-|Falke, Konrad                  |Der Kinderkreuzzug 2                                             |     1924|CH         |
-|Federer, Heinrich              |Berge und Menschen                                               |     1911|CH         |
-|Federer, Heinrich              |Pilatus. Eine Erzählung aus den Bergen                           |     1912|CH         |
-|Federer, Heinrich              |Jungfer Therese                                                  |     1913|CH         |
-|Federer, Heinrich              |Sisto e Sesto                                                    |     1913|CH         |
-|Federer, Heinrich              |Das letzte Stündlein des Papstes Innocenz des Dritten            |     1914|CH         |
-|Federer, Heinrich              |Gebt mir meine Wildnis wieder                                    |     1918|CH         |
-|Federer, Heinrich              |Der Fürchtemacher                                                |     1919|CH         |
-|Federer, Heinrich              |Das Wunder in Holzschuhen                                        |     1919|CH         |
-|Federer, Heinrich              |Spitzbube über Spitzbube                                         |     1921|CH         |
-|Federer, Heinrich              |Wander-und Wundergeschichten aus dem Süden                       |     1924|CH         |
-|Federer, Heinrich              |Papst und Kaiser im Dorf                                         |     1924|CH         |
-|Federer, Heinrich              |Regina Lob                                                       |     1925|CH         |
-|Federer, Heinrich              |Unter südlichen Sonnen und Menschen                              |     1926|CH         |
-|Ferdinand Meyer, Conrad        |Der Heilige                                                      |     1880|CH         |
-|Ferdinand Meyer, Conrad        |Gedichte                                                         |     1882|CH         |
-|Ferdinand Meyer, Conrad        |Die Hochzeit des Mönchs                                          |     1884|CH         |
-|Ferdinand Meyer, Conrad        |Die Richterin                                                    |     1885|CH         |
-|Ferdinand Meyer, Conrad        |Angela Borgia                                                    |     1935|CH         |
-|Fontane, Theodor               |Unterm Birnbaum                                                  |     1973|DE         |
-|Fontane, Theodor               |Grete Minde                                                      |     1973|DE         |
-|Fontane, Theodor               |Graf Petöfy                                                      |     1973|DE         |
-|Fontane, Theodor               |Vor dem Sturm                                                    |     1973|DE         |
-|Fontane, Theodor               |Schach von Wuthenow                                              |     1973|DE         |
-|Fontane, Theodor               |Irrungen, Wirrungen                                              |     1973|DE         |
-|Fontane, Theodor               |Cécile                                                           |     1973|DE         |
-|Fontane, Theodor               |Der Stechlin                                                     |     1973|DE         |
-|Fontane, Theodor               |Mathilde Möhring                                                 |     1973|DE         |
-|François, Louise von           |Judith die Kluswirtin                                            |     1918|DE         |
-|François, Louise von           |Die Geschichte meines Urgroßvaters                               |     1918|DE         |
-|François, Louise von           |Die letzte Reckenburgerin                                        |     1918|DE         |
-|Frey, Jakob                    |Die Waise von Holligen                                           |     1863|CH         |
-|Freytag, Gustav                |Soll und Haben                                                   |     1855|DE         |
-|Freytag, Gustav                |Die verlorene Handschrift                                        |     1864|DE         |
-|Freytag, Gustav                |Die Ahnen                                                        |     1953|DE         |
-|Frohnmeyer, Ida                |Aus Kinderland                                                   |     1912|CH         |
-|Frohnmeyer, Ida                |Aus stillen Gassen                                               |     1921|CH         |
-|Ganghofer, Ludwig              |Schloß Hubertus                                                  |     1917|DE         |
-|Ganghofer, Ludwig              |Der Ochsenkrieg                                                  |     1959|DE         |
-|Gerstäcker, Friedrich          |Die Regulatoren in Arkansas. Aus dem Waldleben Amerikas          |     1846|DE         |
-|Gfeller, Simon                 |Geschichten aus dem Emmental                                     |     1914|CH         |
-|Gfeller, Simon                 |Steinige Wege. Geschichen aus dem Bernbiet                       |     1920|CH         |
-|Gfeller, Simon                 |Ämmegrund                                                        |     1927|CH         |
-|Goswina Berlepsch, Maria       |Thalia in der Sommerfrische                                      |     1892|CH         |
-|Goswina Berlepsch, Maria       |Spätrot.Rosen im Schnee. Schweizer Novellen                      |     1905|CH         |
-|Goswina Berlepsch, Maria       |Heimatscholle                                                    |     1914|CH         |
-|Gotthelf, Jeremias             |Geld und Geist                                                   |     1843|CH         |
-|Gotthelf, Jeremias             |Der Besenbinder von Rychiswyl                                    |     1851|CH         |
-|Gotthelf, Jeremias             |Leiden und Freuden eines Schulmeisters                           |     1898|CH         |
-|Gutzkow, Karl                  |Der Zauberer von Rom                                             |     1858|DE         |
-|Hahn-Hahn, Ida Gräfin von      |Sibylle                                                          |     1846|DE         |
-|Hegner, Ulrich                 |Aus dem Leben eines Geringen                                     |     1860|CH         |
-|Heyking, Elisabeth von         |Briefe, die ihn nicht erreichten                                 |     1903|DE         |
-|Holitscher, Arthur             |Geschichten aus zwei Welten                                      |     1914|CH         |
-|Jakob Kuhn, Gottlieb           |Die Papierstreifen                                               |     1860|CH         |
-|Janitschek, Maria              |Ninive                                                           |     1896|DE         |
-|Janitschek, Maria              |Die Amazonenschlacht                                             |     1897|DE         |
-|Jens, Ina                      |Rosmarin. Weitere Erlebnisse aus Majas Kindheit                  |     1930|CH         |
-|Jens, Ina                      |Mirasol                                                          |     1935|CH         |
-|Jens, Ina                      |Hannelore im Urwaldwinkel                                        |     1936|CH         |
-|Jens, Ina                      |Das Geheimnis der Götter                                         |     1938|CH         |
-|Jens, Ina                      |Maja                                                             |     1939|CH         |
-|Jens, Ina                      |Manuelitos Glücksfall                                            |     1939|CH         |
-|Keller, Gottfried              |Der grüne Heinrich. Bd. 1                                        |     1854|CH         |
-|Keller, Gottfried              |Der grüne Heinrich. Bd. 2                                        |     1854|CH         |
-|Keller, Gottfried              |Der grüne Heinrich. Bd. 3                                        |     1854|CH         |
-|Keller, Gottfried              |Der grüne Heinrich. Bd. 4                                        |     1855|CH         |
-|Keller, Gottfried              |Sieben Legenden                                                  |     1872|CH         |
-|Keller, Gottfried              |Das Sinngedicht                                                  |     1882|CH         |
-|Keller, Gottfried              |Martin Salander                                                  |     1886|CH         |
-|Keyserling, Eduard von         |Dumala                                                           |     1922|DE         |
-|Keyserling, Eduard von         |Wellen                                                           |     1922|DE         |
-|Kiebler, Ulrich                |Aus Berg und Tal. Charakterbilder aus dem schweizer. Bauernleben |     1903|CH         |
-|Kinkel, Gottfried              |Der Domschatz                                                    |     1921|CH         |
-|Kretzer, Max                   |Meister Timpe                                                    |     1888|DE         |
-|Kürnberger, Ferdinand          |Der Amerika-Müde                                                 |     1855|DE         |
-|Kurz, Hermann                  |Der Sonnenwirt                                                   |     1980|DE         |
-|Leuthold, Heinrich             |Lyrische Dichtungen                                              |     1923|CH         |
-|Lewald, Fanny                  |Jenny                                                            |     1872|DE         |
-|Lienert, Meinrad               |Der Pfeiferkönig. Eine Zürchergeschichte                         |     1909|CH         |
-|Lienert, Meinrad               |Das Hochmutsnärrchen                                             |     1911|CH         |
-|Lienert, Meinrad               |Der König von Euland                                             |     1928|CH         |
-|Lienert, Meinrad               |Der doppelte Matthias und seine Töchter                          |     1929|CH         |
-|Lienert, Meinrad               |Das Glöcklein auf Rain                                           |     1933|CH         |
-|Marlitt, Eugenie               |Goldelse                                                         |     1900|DE         |
-|Marlitt, Eugenie               |Das Geheimnis der alten Mamsell                                  |     1900|DE         |
-|Marlitt, Eugenie               |Das Heideprinzeßchen                                             |     1900|DE         |
-|Marti, Hugo                    |Das Kirchlein zu den sieben Wundern                              |     1922|CH         |
-|Marti, Hugo                    |Das Haus am Haff                                                 |     1922|CH         |
-|Marti, Hugo                    |Balder. Sieben Nächte                                            |     1923|CH         |
-|Marti, Hugo                    |Jahresring. Ein poetischer Roman voll Nordlandzauber             |     1925|CH         |
-|Marti, Hugo                    |Der Kelch. Gedichte                                              |     1925|CH         |
-|Marti, Hugo                    |Rumänisches Intermezzo                                           |     1926|CH         |
-|Marti, Hugo                    |Rumänische Mädchen                                               |     1928|CH         |
-|Marti, Hugo                    |Die Herberge am Fluss                                            |     1932|CH         |
-|Marti, Hugo                    |Davoser Stundenbuch                                              |     1935|CH         |
-|May, Karl                      |Und Friede auf Erden!                                            |     1907|DE         |
-|May, Karl                      |Ardistan und Dschinnistan II                                     |     1909|DE         |
-|May, Karl                      |Am Jenseits                                                      |     1912|DE         |
-|Meyrink, Gustav                |Der Golem                                                        |     1917|DE         |
-|Meysenbug, Malwida Freiin von  |Himmlische und irdische Liebe                                    |     1922|DE         |
-|Moeschlin, Felix               |Der glückliche Sommer                                            |     1920|CH         |
-|Möllhausen, Balduin            |Die Mandanenwaise                                                |     1865|DE         |
-|Otto, Louise                   |Nürnberg. Zweiter Band                                           |     1875|DE         |
-|Polenz, Wilhelm von            |Der Büttnerbauer                                                 |     1895|DE         |
-|Raabe, Wilhelm                 |Im alten Eisen                                                   |     1887|DE         |
-|Raabe, Wilhelm                 |Abu Telfan oder Die Heimkehr vom Mondgebirge                     |     1964|DE         |
-|Raabe, Wilhelm                 |Der Schüdderump                                                  |     1964|DE         |
-|Raabe, Wilhelm                 |Der Hungerpastor                                                 |     1964|DE         |
-|Raabe, Wilhelm                 |Alte Nester                                                      |     1964|DE         |
-|Raabe, Wilhelm                 |Die Leute aus dem Walde, ihre Sterne, Wege und Schicksale        |     1964|DE         |
-|Reventlow, Franziska Gräfin zu |Von Paul zu Pedro                                                |     1976|DE         |
-|Reventlow, Franziska Gräfin zu |Herrn Dames Aufzeichnungen                                       |     1976|DE         |
-|Reventlow, Franziska Gräfin zu |Ellen Olestjerne                                                 |     1980|DE         |
-|Rilke, Rainer Maria            |Die Aufzeichnungen des Malte Laurids Brigge                      |     1910|DE         |
-|Rothpletz, Anna                |Der Vorabend des Weihnachtsfestes                                |     1860|CH         |
-|Rubiner, Ludwig                |Der Mensch in der Mitte                                          |     1917|CH         |
-|Ruppius, Otto                  |Das Vermächtnis des Pedlars                                      |     1859|DE         |
-|Ruppius, Otto                  |Der Pedlar                                                       |     1910|DE         |
-|Sack, Gustav                   |Paralyse                                                         |     1913|DE         |
-|Schnitzler, Arthur             |Casanovas Heimfahrt                                              |     1961|DE         |
-|Schnitzler, Arthur             |Der Weg ins Freie                                                |     1961|DE         |
-|Schopenhauer, Adele            |Anna                                                             |     1845|DE         |
-|Siegfried, Walther             |Fermont                                                          |     1893|CH         |
-|Siegfried, Walther             |Tino Moralt                                                      |     1911|CH         |
-|Spielhagen, Friedrich          |Hammer und Amboß                                                 |     1874|DE         |
-|Spielhagen, Friedrich          |Problematische Naturen. Erste Abtheilung                         |     1874|DE         |
-|Spielhagen, Friedrich          |Zum Zeitvertreib                                                 |     1897|DE         |
-|Spitteler, Carl                |Friedli der Kolderli                                             |     1891|CH         |
-|Spitteler, Carl                |Imago                                                            |     1906|CH         |
-|Spyri, Johanna                 |Heimatlos                                                        |     1878|CH         |
-|Spyri, Johanna                 |Heidi's Lehr- und Wanderjahre                                    |     1880|CH         |
-|Spyri, Johanna                 |Im Rhonethal                                                     |     1880|CH         |
-|Spyri, Johanna                 |Heidi kann brauchen, was es gelernt hat                          |     1881|CH         |
-|Spyri, Johanna                 |Was soll denn aus ihr werden?                                    |     1887|CH         |
-|Spyri, Johanna                 |Schloss Wildenstein                                              |     1892|CH         |
-|Spyri, Johanna                 |Aus dem Leben                                                    |     1902|CH         |
-|Spyri, Johanna                 |Einer vom Hause Lesa                                             |     1932|CH         |
-|Spyri, Johanna                 |Artur und Squirrel                                               |     1937|CH         |
-|Spyri, Johanna                 |Kornelli wird erzogen                                            |     1937|CH         |
-|Stegemann, Hermann             |Der gefesselte Strom                                             |     1914|CH         |
-|Stegemann, Hermann             |Die als Opfer fallen                                             |     1916|CH         |
-|Stegemann, Hermann             |Die letzten Tage des Marschalls von Sachsen                      |     1930|CH         |
-|Stifter, Adalbert              |Witiko                                                           |     1959|DE         |
-|Stifter, Adalbert              |Zwei Schwestern                                                  |     1959|DE         |
-|Stifter, Adalbert              |Feldblumen                                                       |     1959|DE         |
-|Stifter, Adalbert              |Die Mappe meines Urgroßvaters                                    |     1959|DE         |
-|Stifter, Adalbert              |Die Narrenburg                                                   |     1959|DE         |
-|Sudermann, Hermann             |Jons und Erdme                                                   |     1923|DE         |
-|Tieck, Ludwig                  |Vittoria Accorombona                                             |     1963|DE         |
-|Vischer, Friedrich Theodor     |Auch Einer 2                                                     |     1879|DE         |
-|Vischer, Friedrich Theodor     |Auch Einer 1                                                     |     1879|DE         |
-|Voegtlin, Adolf                |Heinrich Manesses Abenteuer und Schicksale                       |     1910|CH         |
-|Walden, Marie                  |Aus der Heimat                                                   |     1884|CH         |
-|Waser, Maria                   |Die Geschichte der Anna Waser                                    |     1913|CH         |
-|Waser, Maria                   |Das Jätvreni                                                     |     1917|CH         |
-|Waser, Maria                   |Scala Santa                                                      |     1919|CH         |
-|Wassermann, Jakob              |Caspar Hauser                                                    |     1907|DE         |
-|Weerth, Georg                  |Fragment eines Romans                                            |     1956|DE         |
-|Welti, Helene                  |Famulus der seltsame Pudel                                       |     1925|CH         |
-|Wenger, Lisa                   |Die Wunderdoktorin                                               |     1910|CH         |
-|Wenger, Lisa                   |Der Rosenhof                                                     |     1915|CH         |
-|Wenger, Lisa                   |Er und Sie und das Paradies                                      |     1918|CH         |
-|Wille, Bruno                   |Die Abendburg                                                    |     1909|DE         |
-|Willkomm, Ernst Adolf          |Weisse Sclaven oder die Leiden des Volkes                        |     1845|DE         |
-|Zollinger, Albin               |Der halbe Mensch                                                 |     1929|CH         |
-|Zollinger, Albin               |Pfannenstiel                                                     |     1940|CH         |
-|Zschokke, Heinrich             |Meister Jordan                                                   |     1858|CH         |
-|Zschokke, Heinrich             |Die Rose von Disentis                                            |     1895|CH         |
-
+|author                         |title                                                            |collection | publication date|
+|:------------------------------|:----------------------------------------------------------------|:----------|----------------:|
+|Albrecht Bernoulli, Carl       |Bürgerziel                                                       |CH         |             1922|
+|Albrecht Bernoulli, Carl       |Ull                                                              |CH         |             1931|
+|Arnim, Bettina von             |Die Günderode                                                    |DE         |             1840|
+|Arnim, Bettina von             |Clemens Brentanos Frühlingskranz                                 |DE         |             1844|
+|Aston, Louise                  |Aus dem Leben einer Frau                                         |DE         |             1847|
+|Aston, Louise                  |Lydia                                                            |DE         |             1848|
+|Auerbach, Berthold             |Der Lautenbacher                                                 |DE         |             1843|
+|Auerbach, Berthold             |Der Lehnhold                                                     |DE         |             1854|
+|Auerbach, Berthold             |Barfüßele                                                        |DE         |             1856|
+|Baerwart, Theobald             |Rosswiler Geschichten und anderes                                |CH         |             1918|
+|Bahr, Hermann                  |Die gute Schule                                                  |DE         |             1890|
+|Ball, Hugo                     |Flammetti                                                        |DE         |             1918|
+|Bleibtreu, Karl                |Größenwahn                                                       |DE         |             1888|
+|Bosshart, Jakob                |Ein Rufer in der Wüste                                           |CH         |             1921|
+|Boy-Ed, Ida                    |Fanny Förster                                                    |DE         |             1889|
+|Braun, Lily                    |Lebenssucher                                                     |DE         |             1915|
+|Castell, Alexander             |Fieber. Drei Novellen                                            |CH         |             1916|
+|Christ, Lena                   |Mathias Bichler                                                  |DE         |             1914|
+|Christ, Lena                   |Madam Bäurin                                                     |DE         |             1920|
+|Christen, Ada                  |Jungfer Mutter                                                   |DE         |             1892|
+|Christoph Heer, Jakob          |An heiligen Wassern                                              |CH         |             1898|
+|Christoph Heer, Jakob          |Der König der Bernina                                            |CH         |             1900|
+|Christoph Heer, Jakob          |Felix Notvest                                                    |CH         |             1901|
+|Christoph Heer, Jakob          |Der Wetterwart                                                   |CH         |             1905|
+|Christoph Heer, Jakob          |Laubgewind                                                       |CH         |             1908|
+|Christoph Heer, Jakob          |Der lange Balthasar                                              |CH         |             1915|
+|Christoph Heer, Jakob          |Tobias Heider                                                    |CH         |             1922|
+|Conradi, Hermann               |Adam Mensch                                                      |DE         |             1889|
+|Dahn, Felix                    |Kampf um Rom                                                     |DE         |             1876|
+|Diebold, Bernhard              |Italienische Suite                                               |CH         |             1939|
+|Dohm, Hedwig                   |Wie Frauen werden                                                |DE         |             1894|
+|Dohm, Hedwig                   |Sibilla Dalmar                                                   |DE         |             1896|
+|Dohm, Hedwig                   |Schicksale einer Seele                                           |DE         |             1899|
+|Ebner-Eschenbach, Marie von    |Bozena                                                           |DE         |             1876|
+|Ebner-Eschenbach, Marie von    |Lotti, die Uhrmacherin                                           |DE         |             1880|
+|Ebner-Eschenbach, Marie von    |Agave                                                            |DE         |             1903|
+|Essig, Hermann                 |Der Taifun                                                       |DE         |             1919|
+|Falke, Konrad                  |Der Kinderkreuzzug 1                                             |CH         |             1924|
+|Falke, Konrad                  |Der Kinderkreuzzug 2                                             |CH         |             1924|
+|Federer, Heinrich              |Berge und Menschen                                               |CH         |             1911|
+|Federer, Heinrich              |Pilatus. Eine Erzählung aus den Bergen                           |CH         |             1912|
+|Federer, Heinrich              |Jungfer Therese                                                  |CH         |             1913|
+|Federer, Heinrich              |Sisto e Sesto                                                    |CH         |             1913|
+|Federer, Heinrich              |Das letzte Stündlein des Papstes Innocenz des Dritten            |CH         |             1914|
+|Federer, Heinrich              |Gebt mir meine Wildnis wieder                                    |CH         |             1918|
+|Federer, Heinrich              |Der Fürchtemacher                                                |CH         |             1919|
+|Federer, Heinrich              |Das Wunder in Holzschuhen                                        |CH         |             1919|
+|Federer, Heinrich              |Spitzbube über Spitzbube                                         |CH         |             1921|
+|Federer, Heinrich              |Wander-und Wundergeschichten aus dem Süden                       |CH         |             1924|
+|Federer, Heinrich              |Papst und Kaiser im Dorf                                         |CH         |             1924|
+|Federer, Heinrich              |Regina Lob                                                       |CH         |             1925|
+|Federer, Heinrich              |Unter südlichen Sonnen und Menschen                              |CH         |             1926|
+|Ferdinand Meyer, Conrad        |Der Heilige                                                      |CH         |             1880|
+|Ferdinand Meyer, Conrad        |Gedichte                                                         |CH         |             1882|
+|Ferdinand Meyer, Conrad        |Die Hochzeit des Mönchs                                          |CH         |             1884|
+|Ferdinand Meyer, Conrad        |Die Richterin                                                    |CH         |             1885|
+|Ferdinand Meyer, Conrad        |Angela Borgia                                                    |CH         |             1935|
+|Fontane, Theodor               |Vor dem Sturm                                                    |DE         |             1878|
+|Fontane, Theodor               |Grete Minde                                                      |DE         |             1879|
+|Fontane, Theodor               |Schach von Wuthenow                                              |DE         |             1882|
+|Fontane, Theodor               |Graf Petöfy                                                      |DE         |             1884|
+|Fontane, Theodor               |Unterm Birnbaum                                                  |DE         |             1885|
+|Fontane, Theodor               |Irrungen, Wirrungen                                              |DE         |             1887|
+|Fontane, Theodor               |Cécile                                                           |DE         |             1887|
+|Fontane, Theodor               |Der Stechlin                                                     |DE         |             1897|
+|Fontane, Theodor               |Mathilde Möhring                                                 |DE         |             1906|
+|François, Louise von           |Judith die Kluswirtin                                            |DE         |             1862|
+|François, Louise von           |Die Geschichte meines Urgroßvaters                               |DE         |             1868|
+|François, Louise von           |Die letzte Reckenburgerin                                        |DE         |             1871|
+|Frey, Jakob                    |Die Waise von Holligen                                           |CH         |             1863|
+|Freytag, Gustav                |Soll und Haben                                                   |DE         |             1855|
+|Freytag, Gustav                |Die verlorene Handschrift                                        |DE         |             1864|
+|Freytag, Gustav                |Die Ahnen                                                        |DE         |             1872|
+|Frohnmeyer, Ida                |Aus Kinderland                                                   |CH         |             1912|
+|Frohnmeyer, Ida                |Aus stillen Gassen                                               |CH         |             1921|
+|Ganghofer, Ludwig              |Schloß Hubertus                                                  |DE         |             1895|
+|Ganghofer, Ludwig              |Der Ochsenkrieg                                                  |DE         |             1914|
+|Gerstäcker, Friedrich          |Die Regulatoren in Arkansas. Aus dem Waldleben Amerikas          |DE         |             1846|
+|Gfeller, Simon                 |Geschichten aus dem Emmental                                     |CH         |             1914|
+|Gfeller, Simon                 |Steinige Wege. Geschichen aus dem Bernbiet                       |CH         |             1920|
+|Gfeller, Simon                 |Ämmegrund                                                        |CH         |             1927|
+|Goswina Berlepsch, Maria       |Thalia in der Sommerfrische                                      |CH         |             1892|
+|Goswina Berlepsch, Maria       |Spätrot.Rosen im Schnee. Schweizer Novellen                      |CH         |             1905|
+|Goswina Berlepsch, Maria       |Heimatscholle                                                    |CH         |             1914|
+|Gotthelf, Jeremias             |Geld und Geist                                                   |CH         |             1843|
+|Gotthelf, Jeremias             |Der Besenbinder von Rychiswyl                                    |CH         |             1851|
+|Gotthelf, Jeremias             |Leiden und Freuden eines Schulmeisters                           |CH         |             1898|
+|Gutzkow, Karl                  |Der Zauberer von Rom                                             |DE         |             1858|
+|Hahn-Hahn, Ida Gräfin von      |Sibylle                                                          |DE         |             1846|
+|Hegner, Ulrich                 |Aus dem Leben eines Geringen                                     |CH         |             1860|
+|Heyking, Elisabeth von         |Briefe, die ihn nicht erreichten                                 |DE         |             1903|
+|Holitscher, Arthur             |Geschichten aus zwei Welten                                      |CH         |             1914|
+|Jakob Kuhn, Gottlieb           |Die Papierstreifen                                               |CH         |             1860|
+|Janitschek, Maria              |Ninive                                                           |DE         |             1896|
+|Janitschek, Maria              |Die Amazonenschlacht                                             |DE         |             1897|
+|Jens, Ina                      |Rosmarin. Weitere Erlebnisse aus Majas Kindheit                  |CH         |             1930|
+|Jens, Ina                      |Mirasol                                                          |CH         |             1935|
+|Jens, Ina                      |Hannelore im Urwaldwinkel                                        |CH         |             1936|
+|Jens, Ina                      |Das Geheimnis der Götter                                         |CH         |             1938|
+|Jens, Ina                      |Maja                                                             |CH         |             1939|
+|Jens, Ina                      |Manuelitos Glücksfall                                            |CH         |             1939|
+|Keller, Gottfried              |Der grüne Heinrich. Bd. 1                                        |CH         |             1854|
+|Keller, Gottfried              |Der grüne Heinrich. Bd. 2                                        |CH         |             1854|
+|Keller, Gottfried              |Der grüne Heinrich. Bd. 3                                        |CH         |             1854|
+|Keller, Gottfried              |Der grüne Heinrich. Bd. 4                                        |CH         |             1855|
+|Keller, Gottfried              |Sieben Legenden                                                  |CH         |             1872|
+|Keller, Gottfried              |Das Sinngedicht                                                  |CH         |             1882|
+|Keller, Gottfried              |Martin Salander                                                  |CH         |             1886|
+|Keyserling, Eduard von         |Dumala                                                           |DE         |             1907|
+|Keyserling, Eduard von         |Wellen                                                           |DE         |             1911|
+|Kiebler, Ulrich                |Aus Berg und Tal. Charakterbilder aus dem schweizer. Bauernleben |CH         |             1903|
+|Kinkel, Gottfried              |Der Domschatz                                                    |CH         |             1921|
+|Kretzer, Max                   |Meister Timpe                                                    |DE         |             1888|
+|Kürnberger, Ferdinand          |Der Amerika-Müde                                                 |DE         |             1855|
+|Kurz, Hermann                  |Der Sonnenwirt                                                   |DE         |             1854|
+|Leuthold, Heinrich             |Lyrische Dichtungen                                              |CH         |             1923|
+|Lewald, Fanny                  |Jenny                                                            |DE         |             1843|
+|Lienert, Meinrad               |Der Pfeiferkönig. Eine Zürchergeschichte                         |CH         |             1909|
+|Lienert, Meinrad               |Das Hochmutsnärrchen                                             |CH         |             1911|
+|Lienert, Meinrad               |Der König von Euland                                             |CH         |             1928|
+|Lienert, Meinrad               |Der doppelte Matthias und seine Töchter                          |CH         |             1929|
+|Lienert, Meinrad               |Das Glöcklein auf Rain                                           |CH         |             1933|
+|Marlitt, Eugenie               |Goldelse                                                         |DE         |             1866|
+|Marlitt, Eugenie               |Das Geheimnis der alten Mamsell                                  |DE         |             1867|
+|Marlitt, Eugenie               |Das Heideprinzeßchen                                             |DE         |             1871|
+|Marti, Hugo                    |Das Kirchlein zu den sieben Wundern                              |CH         |             1922|
+|Marti, Hugo                    |Das Haus am Haff                                                 |CH         |             1922|
+|Marti, Hugo                    |Balder. Sieben Nächte                                            |CH         |             1923|
+|Marti, Hugo                    |Jahresring. Ein poetischer Roman voll Nordlandzauber             |CH         |             1925|
+|Marti, Hugo                    |Der Kelch. Gedichte                                              |CH         |             1925|
+|Marti, Hugo                    |Rumänisches Intermezzo                                           |CH         |             1926|
+|Marti, Hugo                    |Rumänische Mädchen                                               |CH         |             1928|
+|Marti, Hugo                    |Die Herberge am Fluss                                            |CH         |             1932|
+|Marti, Hugo                    |Davoser Stundenbuch                                              |CH         |             1935|
+|May, Karl                      |Am Jenseits                                                      |DE         |             1899|
+|May, Karl                      |Und Friede auf Erden!                                            |DE         |             1904|
+|May, Karl                      |Ardistan und Dschinnistan II                                     |DE         |             1909|
+|Meyrink, Gustav                |Der Golem                                                        |DE         |             1913|
+|Meysenbug, Malwida Freiin von  |Himmlische und irdische Liebe                                    |DE         |             1905|
+|Moeschlin, Felix               |Der glückliche Sommer                                            |CH         |             1920|
+|Möllhausen, Balduin            |Die Mandanenwaise                                                |DE         |             1865|
+|Otto, Louise                   |Nürnberg. Zweiter Band                                           |DE         |             1858|
+|Polenz, Wilhelm von            |Der Büttnerbauer                                                 |DE         |             1895|
+|Raabe, Wilhelm                 |Der Hungerpastor                                                 |DE         |             1863|
+|Raabe, Wilhelm                 |Die Leute aus dem Walde, ihre Sterne, Wege und Schicksale        |DE         |             1863|
+|Raabe, Wilhelm                 |Abu Telfan oder Die Heimkehr vom Mondgebirge                     |DE         |             1867|
+|Raabe, Wilhelm                 |Der Schüdderump                                                  |DE         |             1869|
+|Raabe, Wilhelm                 |Alte Nester                                                      |DE         |             1879|
+|Raabe, Wilhelm                 |Im alten Eisen                                                   |DE         |             1887|
+|Reventlow, Franziska Gräfin zu |Ellen Olestjerne                                                 |DE         |             1903|
+|Reventlow, Franziska Gräfin zu |Von Paul zu Pedro                                                |DE         |             1912|
+|Reventlow, Franziska Gräfin zu |Herrn Dames Aufzeichnungen                                       |DE         |             1913|
+|Rilke, Rainer Maria            |Die Aufzeichnungen des Malte Laurids Brigge                      |DE         |             1910|
+|Rothpletz, Anna                |Der Vorabend des Weihnachtsfestes                                |CH         |             1860|
+|Rubiner, Ludwig                |Der Mensch in der Mitte                                          |CH         |             1917|
+|Ruppius, Otto                  |Der Pedlar                                                       |DE         |             1857|
+|Ruppius, Otto                  |Das Vermächtnis des Pedlars                                      |DE         |             1859|
+|Sack, Gustav                   |Paralyse                                                         |DE         |             1913|
+|Schnitzler, Arthur             |Der Weg ins Freie                                                |DE         |             1907|
+|Schnitzler, Arthur             |Casanovas Heimfahrt                                              |DE         |             1918|
+|Schopenhauer, Adele            |Anna                                                             |DE         |             1845|
+|Siegfried, Walther             |Fermont                                                          |CH         |             1893|
+|Siegfried, Walther             |Tino Moralt                                                      |CH         |             1911|
+|Spielhagen, Friedrich          |Problematische Naturen. Erste Abtheilung                         |DE         |             1861|
+|Spielhagen, Friedrich          |Hammer und Amboß                                                 |DE         |             1869|
+|Spielhagen, Friedrich          |Zum Zeitvertreib                                                 |DE         |             1897|
+|Spitteler, Carl                |Friedli der Kolderli                                             |CH         |             1891|
+|Spitteler, Carl                |Imago                                                            |CH         |             1906|
+|Spyri, Johanna                 |Heimatlos                                                        |CH         |             1878|
+|Spyri, Johanna                 |Heidi's Lehr- und Wanderjahre                                    |CH         |             1880|
+|Spyri, Johanna                 |Im Rhonethal                                                     |CH         |             1880|
+|Spyri, Johanna                 |Heidi kann brauchen, was es gelernt hat                          |CH         |             1881|
+|Spyri, Johanna                 |Was soll denn aus ihr werden?                                    |CH         |             1887|
+|Spyri, Johanna                 |Schloss Wildenstein                                              |CH         |             1892|
+|Spyri, Johanna                 |Aus dem Leben                                                    |CH         |             1902|
+|Spyri, Johanna                 |Einer vom Hause Lesa                                             |CH         |             1932|
+|Spyri, Johanna                 |Artur und Squirrel                                               |CH         |             1937|
+|Spyri, Johanna                 |Kornelli wird erzogen                                            |CH         |             1937|
+|Stegemann, Hermann             |Der gefesselte Strom                                             |CH         |             1914|
+|Stegemann, Hermann             |Die als Opfer fallen                                             |CH         |             1916|
+|Stegemann, Hermann             |Die letzten Tage des Marschalls von Sachsen                      |CH         |             1930|
+|Stifter, Adalbert              |Feldblumen                                                       |DE         |             1841|
+|Stifter, Adalbert              |Die Mappe meines Urgroßvaters                                    |DE         |             1841|
+|Stifter, Adalbert              |Die Narrenburg                                                   |DE         |             1843|
+|Stifter, Adalbert              |Zwei Schwestern                                                  |DE         |             1846|
+|Stifter, Adalbert              |Witiko                                                           |DE         |             1865|
+|Sudermann, Hermann             |Jons und Erdme                                                   |DE         |             1917|
+|Tieck, Ludwig                  |Vittoria Accorombona                                             |DE         |             1840|
+|Vischer, Friedrich Theodor     |Auch Einer 2                                                     |DE         |             1879|
+|Vischer, Friedrich Theodor     |Auch Einer 1                                                     |DE         |             1879|
+|Voegtlin, Adolf                |Heinrich Manesses Abenteuer und Schicksale                       |CH         |             1910|
+|Walden, Marie                  |Aus der Heimat                                                   |CH         |             1884|
+|Waser, Maria                   |Die Geschichte der Anna Waser                                    |CH         |             1913|
+|Waser, Maria                   |Das Jätvreni                                                     |CH         |             1917|
+|Waser, Maria                   |Scala Santa                                                      |CH         |             1919|
+|Wassermann, Jakob              |Caspar Hauser                                                    |DE         |             1907|
+|Weerth, Georg                  |Fragment eines Romans                                            |DE         |             1846|
+|Welti, Helene                  |Famulus der seltsame Pudel                                       |CH         |             1925|
+|Wenger, Lisa                   |Die Wunderdoktorin                                               |CH         |             1910|
+|Wenger, Lisa                   |Der Rosenhof                                                     |CH         |             1915|
+|Wenger, Lisa                   |Er und Sie und das Paradies                                      |CH         |             1918|
+|Wille, Bruno                   |Die Abendburg                                                    |DE         |             1909|
+|Willkomm, Ernst Adolf          |Weisse Sclaven oder die Leiden des Volkes                        |DE         |             1845|
+|Zollinger, Albin               |Der halbe Mensch                                                 |CH         |             1929|
+|Zollinger, Albin               |Pfannenstiel                                                     |CH         |             1940|
+|Zschokke, Heinrich             |Meister Jordan                                                   |CH         |             1858|
+|Zschokke, Heinrich             |Die Rose von Disentis                                            |CH         |             1895|
