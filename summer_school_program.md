@@ -8,7 +8,7 @@ title: home
 [home](index.md) | [people](people.md) | [corpus](corpus.md) | [resources](resources.md) | [program](summer_school_program.md)
 
 ## Summer School: Raum und Affekt
-#### Zürich, 29-30 June 2022, "Hermann-Escher-Saal" (Zentralbibliothek Zürich, Zähringerplatz 6, 8001 Zürich)
+#### Zürich, 29-30 June 2022, ["Hermann-Escher-Saal" (Zentralbibliothek Zürich, Zähringerplatz 6, 8001 Zürich)](https://goo.gl/maps/BpsWmL4gE2qKvT1U9)
 
 ### Program / Programme
 
