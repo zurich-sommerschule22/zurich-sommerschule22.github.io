@@ -5,7 +5,7 @@ title: people
 
 ![](images/header3.png)
 
-[home](index.md) | [people](people.md) | [corpus](corpus.md) | [resources](resources.md)
+[home](index.md) | [people](people.md) | [corpus](corpus.md) | [resources](resources.md) | [program](summer_school_program.md)
 
 
 ## People
