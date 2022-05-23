@@ -12,11 +12,11 @@ title: people
 
 |  |  |  |  |
 |-------|-------|-----------------|--------------|
-| ![](/images/ppl/ek.jpeg) | Organizer |  [Elias Kreyenbühl]() | [Zürich Central Library](https://www.zb.uzh.ch/en) |
-| ![](/images/ppl/jr.jpeg) | Organizer |  [Jesko Reiling]() | [Zürich Central Library](https://www.zb.uzh.ch/en) |
-| ![](/images/ppl/jbh.jpeg) | Organizer/Tutor | [J. Berenike Herrmann](https://jberenike.github.io/) | [Bielefeld University](https://www.uni-bielefeld.de/fakultaeten/linguistik-literaturwissenschaft/index.xml) |
-| ![](/images/ppl/gg.jpeg) | Organizer/Tutor | [Giulia Grisot](https://giuliagrisot.github.io/) | [Bielefeld University](https://www.uni-bielefeld.de/fakultaeten/linguistik-literaturwissenschaft/index.xml) |
-| ![](/images/ppl/sr.jpeg) | Organizer/Tutor | [Simone Rebora](https://github.com/SimoneRebora/) | [Bielefeld University](https://www.uni-bielefeld.de/fakultaeten/linguistik-literaturwissenschaft/index.xml) |
+| ![](/images/ppl/jbh.jpeg) | [Prof. Dr. Berenike Herrmann](https://jberenike.github.io/) | Scientific Lead | [Bielefeld University](https://www.uni-bielefeld.de/fakultaeten/linguistik-literaturwissenschaft/index.xml) |
+| ![](/images/ppl/ek.jpeg) | [Dr. Elias Kreyenbühl]() | Local Organizer | [Zürich Central Library](https://www.zb.uzh.ch/en) |
+| ![](/images/ppl/jr.jpeg) | [PD Dr. Jesko Reiling]() | Local Organizer | [Zürich Central Library](https://www.zb.uzh.ch/en) |
+| ![](/images/ppl/gg.jpeg) | [Dr. Giulia Grisot](https://giuliagrisot.github.io/) | Tutor/Organizer | [Bielefeld University](https://www.uni-bielefeld.de/fakultaeten/linguistik-literaturwissenschaft/index.xml) |
+| ![](/images/ppl/sr.jpeg) | [Dr. Simone Rebora](https://github.com/SimoneRebora/) | Tutor/Organizer | [Bielefeld University](https://www.uni-bielefeld.de/fakultaeten/linguistik-literaturwissenschaft/index.xml) |
 
 
 ## Partners
