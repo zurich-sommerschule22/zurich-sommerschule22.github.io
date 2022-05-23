@@ -5,11 +5,11 @@ title: home
 
 ![](images/header3.png)
 
-[home](index.md) | [people](people.md) | [corpus](corpus.md) | [resources](resources.md)
+[home](index.md) | [people](people.md) | [corpus](corpus.md) | [resources](resources.md) | [program](summer_school_program.md)
 
 ## Welcome!
 
-This is the official page of the 2022 *Summer School: Raum und Affekt*.
+This is the official page of the 2022 *Summer School: Raum und Affekt*, which will take place in the **"Hermann-Escher-Saal" of the Zürich Central Library** (Zentralbibliothek Zürich, Zähringerplatz 6, 8001 Zürich).
 
 Here you can find [resources](resources.md) that will allow you to make the most of our summer school, as well as the [program](summer_school_program.md), and information on the [corpus](corpus.md) we will use in the several exercises and practice sessions that will be the core of the summer school.
 You will also find some recommended readings, which might give you an idea of what Digital Literary Studies are about.
