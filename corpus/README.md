@@ -1,4 +1,4 @@
-# Corpus of 200 German (100) and Swiss (100) literary texts published between 1800 and 1950
+# Corpus of 210 German (96) and Swiss (114) literary texts published between 1800 and 1950
 
 This folder contains the following files:
 
