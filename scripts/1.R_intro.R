@@ -112,12 +112,12 @@ substr()
 
 # printing working directory
 getwd()
-setwd("/cloud/project/corpus") # notice that this can also be done via the RStudio GUI
+setwd("/cloud/project/samples") # notice that this can also be done via the RStudio GUI
 getwd()
 setwd("/cloud/project")
 
 # read text line by line
-my_text <- readLines("corpus/Cbronte_Jane_1847.txt")
+my_text <- readLines("samples/Cbronte_Jane_1847.txt")
 head(my_text)
 
 # collapse all text in a single line (separated by the "newline" character)
@@ -125,7 +125,7 @@ my_text <- paste(my_text, collapse = "\n")
 
 # write file
 cat("The cat is on the table")
-cat("The cat is on the table", file = "Cat.txt")
+cat("The cat is on the table", file = "samples/Cat.txt")
 
 ### Your Turn (4) - start
 
@@ -164,16 +164,27 @@ for(i in 1:10){
 # tip: copy paste here below the "more than one" loop and modify it
 
 
-### Your Turn (6) - end
+### Your Turn (5) - end
 
 ### 6. Functions
 
 # basic (stupid) example
-my_function <- function(){
-  cat("Ciao")
+my_function <- function(x){
+  cat("Ciao", x)
 }
 
-my_function()
+my_function("Simone")
+my_function("Giulia")
+
+### Your Turn (6) - start
+
+# create a function that takes as input two names 
+# (e.g. "Simone" and "Giulia")
+# ...and prints a sentence including those two names
+# (e.g. "Simone is teaching R with Giulia")
+
+
+### Your Turn (6) - end
 
 ### 7. Packages
 
