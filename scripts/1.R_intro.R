@@ -126,11 +126,13 @@ my_text <- paste(my_text, collapse = "\n")
 # print text / write file
 print("The cat is on the table")
 cat("The cat is on the table")
+cat("The cat is on the table", my_string)
 cat("The cat is on the table", file = "samples/Cat.txt")
 
 ### Your Turn (4) - start
 
-# read the another .txt file and split it into single words 
+# read another .txt file in the "samples" folder
+# and split it into single words 
 my_text <- readLines("")
 strsplit()
 
