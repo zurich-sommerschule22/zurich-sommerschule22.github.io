@@ -123,7 +123,8 @@ head(my_text)
 # collapse all text in a single line (separated by the "newline" character)
 my_text <- paste(my_text, collapse = "\n")
 
-# write file
+# print text / write file
+print("The cat is on the table")
 cat("The cat is on the table")
 cat("The cat is on the table", file = "samples/Cat.txt")
 
