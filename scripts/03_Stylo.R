@@ -10,7 +10,19 @@ library(stylo)
 # for this reason, you need to change working directory
 setwd("/cloud/project/stylo")
 
-# First analysis (dendrogram with 100 MFW)
+# First analysis (dendrogram with 100 MFW and classic Delta distance)
+stylo(corpus.format="plain",
+      corpus.lang="German", 
+      mfw.min=100, 
+      mfw.max=100,
+      mfw.incr=0,
+      distance.measure="dist.delta",
+      analysis.type="CA",
+      write.jpg.file=T,
+      plot.custom.height=16,
+      plot.custom.width=9)
+
+# Second analysis (dendrogram with 100 MFW and Cosine Delta distance)
 stylo(corpus.format="plain",
       corpus.lang="German", 
       mfw.min=100, 
@@ -22,7 +34,7 @@ stylo(corpus.format="plain",
       plot.custom.height=16,
       plot.custom.width=9)
 
-# Second analysis (dendrogram with 2,000 MFW)
+# Third analysis (dendrogram with 2,000 MFW)
 stylo(corpus.format="plain",
       corpus.lang="German", 
       mfw.min=2000, 
@@ -34,7 +46,7 @@ stylo(corpus.format="plain",
       plot.custom.height=16,
       plot.custom.width=9)
 
-# Third analysis (Consensus tree with 2000 MFW)
+# Fourth analysis (Consensus tree with 2000 MFW)
 stylo(corpus.format="plain",
       corpus.lang="German", 
       mfw.min=100, 
@@ -46,7 +58,7 @@ stylo(corpus.format="plain",
       plot.custom.height=16,
       plot.custom.width=16)
 
-# Fourth analysis (dendrogram, working on the entire corpus)
+# Fifth analysis (dendrogram, working on the entire corpus)
 stylo(corpus.format="plain",
       corpus.lang="German", 
       mfw.min=2000, 
@@ -58,11 +70,11 @@ stylo(corpus.format="plain",
       plot.custom.height=20,
       plot.custom.width=10,
       plot.font.size = 5,
-      frequencies="table_with_frequencies.txt")
+      frequencies="full_corpus_dtm.txt")
 # here files are not actually read from the "corpus" folder
-# as word frequencies are already provided in "table_with_frequencies.txt" file
+# as word frequencies are already provided in "full_corpus_dtm.txt" file
 
-# Fifth analysis (consensus tree, working on the entire corpus)
+# Sixth analysis (consensus tree, working on the entire corpus)
 stylo(corpus.format="plain",
       corpus.lang="German", 
       mfw.min=100, 
@@ -74,9 +86,7 @@ stylo(corpus.format="plain",
       plot.custom.height=20,
       plot.custom.width=20,
       plot.font.size = 5,
-      frequencies="table_with_frequencies.txt")
-# here files are not actually read from the "corpus" folder
-# as word frequencies are already provided in "table_with_frequencies.txt" file
+      frequencies="full_corpus_dtm.txt")
 
 # Here is an overview of the options to put between the brackets
 # 
