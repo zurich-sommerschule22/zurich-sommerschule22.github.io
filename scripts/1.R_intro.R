@@ -5,7 +5,7 @@
 # Everything else is R code
 # To activate the code, place the cursor on the corresponding line
 # (or highlight multiple lines/pieces of code) 
-# ...and press Ctrl+Enter
+# ...and press Ctrl+Enter (or Cmd+Enter for Mac)
 # (the command will be automatically copy/pasted into the console)
 
 ### 1. Creating variables
