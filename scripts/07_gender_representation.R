@@ -85,7 +85,9 @@ corpus_token_SA <- corpus_token_SA %>%
     german_names
   )
 
-corpus_meta <- corpus_meta %>%
+corpus_aggr <- corpus_token_SA %>%
+  select(-sentence) %>%
+  aggregate()
   left_join(
     german_names
   )
