@@ -24,7 +24,6 @@
 # PS: Have you noticed that there is a little symbol on the top right of this panel, made of little horizontal lines? it is the document outline. if you write a comment and put a series of hashes after it, will become the header of a section, which you can then see in the outline for an easier navigation of the script. You can hide or visualise the outline by clicking on the button.
 
 library(tidyverse)
-library(data.table)
 library(syuzhet)
 library(tidytext)
 library(sjPlot)
@@ -47,13 +46,17 @@ theme_set(theme_sjplot2()) # set default ggplot theme to light
 fs = 12 # default plot font size
 
 
-## files import ----------------- 
+## corpus creation ----------------- 
 
 # in this case, the files are consistently saved as author_title_year.txt, where we use one word only for the author and for the title, and the format YYYY for the year of first publication.
 
 # It is important to be consistent! It can make your life much easier when you deal with many texts.
 
-# this tells R to look only for txt files in the working directory. (that's why we had to change it. we will set it back to the previous WD later)
+# we can tell R to look only for txt files in the working directory, and to "unnest" sentences, i.e. to split the texts into setnences for us.
+
+# while having a big corpus is in principle the best solution for quantitative analyses, it also adds a level of complication: a higher processing effort. with 200+ texts, only the dataframe created with tokenization was larger the 5 GB, and RStudio Cloud only supports a limited amount of data.
+# For the sake of the workshop, we will use a reduced version of the corpus, with only 
+# 150 sentences per book
 
 
 corpus <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
@@ -64,13 +67,8 @@ corpus <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
   group_by(doc_id) %>%
   mutate(sentence_id = seq_along(sentence)) %>%
   slice_sample(n = 150) %>% # random 150 sentences per text
-  ungroup()
-
-corpus$sentence <- str_replace_all(corpus$sentence, pattern = "ſ", replacement = "s")
-
-# while having a big corpus is in principle the best solution for quantitative analyses, it also adds a level of complication: a higher processing effort. with 200+ texts, only the dataframe created with tokenization was larger the 5 GB. 
-# For the sake of the workshop, we will use a reduced version of the corpus, with only 
-# 150 sentences per book
+  ungroup() %>%
+  mutate(sentence = str_replace_all(sentence, pattern = "ſ", replacement = "s"))
 
 
 
