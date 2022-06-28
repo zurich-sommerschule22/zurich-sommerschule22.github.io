@@ -112,12 +112,12 @@ substr()
 
 # printing working directory
 getwd()
-setwd("/cloud/project/samples") # notice that this can also be done via the RStudio GUI
+setwd("/cloud/project/scripts") # notice that this can also be done via the RStudio GUI
 getwd()
 setwd("/cloud/project")
 
 # read text line by line
-my_text <- readLines("samples/Cbronte_Jane_1847.txt")
+my_text <- readLines("scripts/samples/schnitzler_casanovas_1918.txt")
 head(my_text)
 
 # collapse all text in a single line (separated by the "newline" character)
@@ -127,7 +127,7 @@ my_text <- paste(my_text, collapse = "\n")
 print("The cat is on the table")
 cat("The cat is on the table")
 cat("The cat is on the table", my_string)
-cat("The cat is on the table", file = "samples/Cat.txt")
+cat("The cat is on the table", file = "scripts/samples/Cat.txt")
 
 ### Your Turn (4) - start
 
