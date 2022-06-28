@@ -1,4 +1,4 @@
-# Stylometry on German ElTeC collection
+# Stylometry on Swiss/German corpus
 
 # Install and call the package
 install.packages("stylo")
@@ -151,3 +151,14 @@ stylo(corpus.format="plain",
 # 
 # Much more details are available here: https://github.com/computationalstylistics/stylo_howto/blob/master/stylo_howto.pdf
 # Note that if you will install Rstudio in your laptop, stylo will also have a graphical interface to set up these features
+
+# Oppose analysis
+oppose(text.slice.length = 3000,
+       oppose.method = "craig.zeta",
+       write.png.file = TRUE)
+# this function takes the texts from two folders:
+# "primary_set" and "secondary_set"
+
+# Analysis on full corpus will make RStudio Cloud run out of memory
+# The result of such analysis has been saved as "Oppose_full_analysis.png"
+# In the "images" folder
