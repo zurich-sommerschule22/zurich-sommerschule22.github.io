@@ -77,11 +77,10 @@ corpus <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
 library(readxl)
 
 
-corpus_meta <- read_excel(
+corpus_meta <- readxl::read_excel(
   # "D:/GitHub/zurich-sommerschule22.github.io/corpus/summer_school_corpus_info.xlsx"
   "summer_school_corpus_info_new.xlsx"
-) %>%
-  select(doc_id, title, author, pub_date, first_name, surname, collection)
+  )
 
 
 corpus <- corpus %>%

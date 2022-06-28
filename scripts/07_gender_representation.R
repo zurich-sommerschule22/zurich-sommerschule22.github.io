@@ -2,45 +2,71 @@
 library(tidyverse)
 library(readxl)
 
-# load(
-#   "C:/Users/grig/scibo_swissness/test_swiss_corpus_R/all_entities_new.Rdata"
-#   # "~/sciebo/test_swiss_corpus_R/all_entities_new.Rdata"
-# )
 
-# load("TS_corpus.Rdata")
-# 
-# corpus_TS <- corpus_TS %>%
-#   filter(sentence_id >= 30 & sentence_id <= 130)
-# 
-# save(corpus_TS, file="TS_corpus_small.Rdata")
-# 
-# gc()
 
-load("TS_corpus_small.Rdata")
+# PREP -----------
+# if you erased your corpus, run this to recreate it:
 
-corpus_meta <- corpus_meta %>%
-  mutate(first_name = ifelse(first_name == "Bettina von", "Bettina", first_name))
+corpus_token_SA <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
+  unnest_sentences(input = "text",
+                   output = "sentence",
+                   to_lower = F, drop = T) %>%
+  as_tibble()  %>%
+  group_by(doc_id) %>%
+  mutate(sentence_id = seq_along(sentence)) %>%
+  slice_sample(n = 150) %>% # random 150 sentences per text
+  ungroup() %>%
+  mutate(sentence = str_replace_all(sentence, pattern = "ſ", replacement = "s")) %>%
+  left_join(read_excel(
+    # "D:/GitHub/zurich-sommerschule22.github.io/corpus/summer_school_corpus_info.xlsx"
+    "summer_school_corpus_info_new.xlsx"
+  ) %>%
+    select(doc_id, title, author, pub_date, first_name, surname, collection)) %>%
+  filter(!is.na(author)) %>%
+  select(collection,
+         doc_id,
+         author,
+         title,
+         first_name,
+         pub_date,
+         sentence,
+         sentence_id) %>%
+  unnest_tokens(input = "sentence", output = "token", to_lower = F, drop = F) %>%
+  group_by(title, sentence_id) %>%
+  mutate(token_id = seq_along(token)) %>%
+  ungroup() %>%
+  mutate(unique_word_id = seq_along(token)) %>%
+  left_join(read.csv("SA_resources/SentiArt.dat",
+                     dec = ",",
+                     encoding = "UTF-8") %>%
+              rename(token = 1) %>%
+              mutate(ang_z = (ang_z - mean(ang_z))/sd(ang_z)) %>%
+              select(-word)
+  )
 
-corpus_TS <- corpus_TS %>%
-  mutate(first_name = ifelse(first_name == "Bettina von", "Bettina", first_name))
+# stopwords list
 
-corpus_meta <- corpus_meta %>%
-  mutate(first_name = ifelse(first_name == "Ernst Adolf", "Adolf", first_name))
+stop_german <- tibble(word = stopwords::stopwords("de"))
+stop_german2 <- stop_german
+stop_german2$word <- str_to_sentence(stop_german2$word)
+stop_german <- bind_rows(stop_german, stop_german2)
+remove(stop_german2)
+stop_german <- stop_german %>%
+  rename(token = word)
 
-corpus_TS <- corpus_TS %>%
-  mutate(first_name = ifelse(first_name == "Ernst Adolf", "Adolf", first_name))
-
-# authors gender ---------------
+# proper names list
 
 german_names <- read_delim("Vornamen_2020_Koeln_edited.csv", 
                            delim = ";", escape_double = FALSE, 
                            col_types = cols(anzahl = col_skip(), 
                                             position = col_skip()
-                                            ), 
+                           ), 
                            trim_ws = TRUE) %>%
   rename(first_name = vorname) %>%
   rename(gender = geschlecht) %>%
   distinct()
+
+# let's make sure there are no double names
 
 doubles_st <- german_names$first_name[duplicated(german_names$first_name)]
 
@@ -50,10 +76,11 @@ doubles_st <- german_names %>%
 
 german_names <- german_names %>%
   anti_join(doubles_st)
-  
+
 remove(doubles_st)
 
-corpus_TS <- corpus_TS %>%
+
+corpus_token_SA <- corpus_token_SA %>%
   left_join(
     german_names
   )
@@ -63,18 +90,18 @@ corpus_meta <- corpus_meta %>%
     german_names
   )
 
-corpus_TS_total <- corpus_TS %>%
+corpus_token_SA_total <- corpus_token_SA %>%
   select(doc_id, sentence_id, token_id) %>%
   distinct() %>%
   nrow()
 
-female_total <- corpus_TS %>%
+female_total <- corpus_token_SA %>%
   select(doc_id, sentence_id, gender, token_id) %>%
   distinct() %>%
   filter(gender == "w") %>%
   nrow()
 
-male_total <- corpus_TS %>%
+male_total <- corpus_token_SA %>%
   select(doc_id, sentence_id, gender, token_id) %>%
   distinct() %>%
   filter(gender == "m") %>%
@@ -104,15 +131,15 @@ german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>
   select(-lang, -value)
 
 
-corpus_TS_sentiment <- corpus_TS %>%
+corpus_token_SA_sentiment <- corpus_token_SA %>%
   left_join(german_sents, by = c("token"="word"))
 
-remove(corpus_TS)
+remove(corpus_token_SA)
 gc()
 
 # overall proportion of sentiment words in corpus by gender
 
-corpus_TS_sentiment %>%
+corpus_token_SA_sentiment %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
   group_by(gender, sentiment) %>%
@@ -128,26 +155,26 @@ corpus_TS_sentiment %>%
 
 # discrete emotions count per year
 
-corpus_TS_sentiment %>%
+corpus_token_SA_sentiment %>%
   filter(sentiment != "positive" & sentiment != "negative") %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
   group_by(sentiment, pub_date, gender) %>%
   count() %>%
   group_by(sentiment, pub_date, n, gender) %>%
-  summarise(sent_prop = n*100/corpus_TS_total) %>%
+  summarise(sent_prop = n*100/corpus_token_SA_total) %>%
   ggplot(aes(x=pub_date, y=sent_prop, color=sentiment)) +
   geom_point() +
   facet_grid(. ~ gender)
 
-corpus_TS_sentiment %>%
+corpus_token_SA_sentiment %>%
   filter(sentiment == "positive" | sentiment == "negative") %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   group_by(sentiment, pub_date) %>%
   count() %>%
   mutate(n = ifelse(sentiment == "positive", n, -n)) %>%
   group_by(sentiment, pub_date, n) %>%
-  summarise(sent_prop = n*100/corpus_TS_total) %>%
+  summarise(sent_prop = n*100/corpus_token_SA_total) %>%
   ggplot(aes(x=pub_date, y=sent_prop, color=sentiment)) +
   geom_point() +
   geom_smooth(se = F)
@@ -155,14 +182,14 @@ corpus_TS_sentiment %>%
 
 # positive/negative by year and gender
 
-corpus_TS_sentiment %>%
+corpus_token_SA_sentiment %>%
   filter(sentiment == "positive" | sentiment == "negative") %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   group_by(sentiment, pub_date, gender) %>%
   count() %>%
   mutate(n = ifelse(sentiment == "positive", n, -n)) %>%
   group_by(sentiment, pub_date, gender, n) %>%
-  summarise(sent_prop = n*100/corpus_TS_total) %>%
+  summarise(sent_prop = n*100/corpus_token_SA_total) %>%
   ggplot(aes(x=pub_date, y=sent_prop, color=sentiment)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -171,7 +198,7 @@ corpus_TS_sentiment %>%
 
 # represented gender -----------------
 
-corpus_TS_aggregated <- corpus_TS_sentiment %>%
+corpus_token_SA_aggregated <- corpus_token_SA_sentiment %>%
   filter(!is.na(sentiment)) %>%
   mutate(sentiment_value = 1) %>%
   # mutate(sentiment_item = ifelse(sentiment_value == 1, token, NA)) %>%
@@ -208,7 +235,7 @@ remove(stop_german2)
 
 ### FEMALE corpus --------
 
-corpus_gender_female <- corpus_TS_sentiment %>%
+corpus_gender_female <- corpus_token_SA_sentiment %>%
   select(author,
          title,
          doc_id,
@@ -249,7 +276,7 @@ corpus_gender_female <- corpus_TS_sentiment %>%
 
 
 
-corpus_gender_male <- corpus_TS_sentiment %>%
+corpus_gender_male <- corpus_token_SA_sentiment %>%
   select(author,
          title,
          doc_id,
@@ -288,7 +315,7 @@ corpus_gender_male <- corpus_TS_sentiment %>%
 corpus_gender <- bind_rows(corpus_gender_female, corpus_gender_male)
 remove(corpus_gender_female, corpus_gender_male)
 
-corpus_TS_aggregated <- corpus_TS_aggregated %>%
+corpus_token_SA_aggregated <- corpus_token_SA_aggregated %>%
   left_join(corpus_gender)
 
 
@@ -297,17 +324,17 @@ remove(german_names, german_sents)
 
 library(table1)
 
-corpus_TS_aggregated %>%
+corpus_token_SA_aggregated %>%
   group_by(gender_type) %>%
   summarise(sentiment_value = mean(sentiment_value)) %>%
   ggplot(aes(y=sentiment_value, x=gender_type, fill=gender_type, label=round(sentiment_value, 3))) +
   geom_col(position="dodge") +
   geom_text(nudge_y = -.2)
 
-table1::table1(~ sentiment_value | sentiment + gender_type, data=corpus_TS_aggregated)
+table1::table1(~ sentiment_value | sentiment + gender_type, data=corpus_token_SA_aggregated)
 
 
-corpus_TS_aggregated %>%
+corpus_token_SA_aggregated %>%
   group_by(gender_type, gender) %>%
   summarise(sentiment_value = mean(sentiment_value)) %>%
   ggplot(aes(y=sentiment_value, x=gender_type, fill=gender_type, label=round(sentiment_value, 3))) +
@@ -321,7 +348,7 @@ corpus_TS_aggregated %>%
 
 library(quanteda)
 
-toks <- corpus_TS_aggregated %>%
+toks <- corpus_token_SA_aggregated %>%
   select(sentence, sentence_id) %>%
   distinct()
 
