@@ -161,4 +161,4 @@ oppose(text.slice.length = 3000,
 
 # Analysis on full corpus will make RStudio Cloud run out of memory
 # The result of such analysis has been saved as "Oppose_full_analysis.png"
-# In the "images" folder
+# In the "stylo" folder

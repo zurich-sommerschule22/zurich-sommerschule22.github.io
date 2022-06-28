@@ -117,7 +117,7 @@ getwd()
 setwd("/cloud/project")
 
 # read text line by line
-my_text <- readLines("scripts/samples/schnitzler_casanovas_1918.txt")
+my_text <- readLines("scripts/samples/federer_pilatus_1912.txt")
 head(my_text)
 
 # collapse all text in a single line (separated by the "newline" character)
