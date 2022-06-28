@@ -2,8 +2,11 @@ library(readtext)
 library(tidyverse)
 library(stringr)
 library(readxl)
+library(tidytext)
+library(sjPlot)
 
 
+fs=9
 
 # PREP -----------
 # if you erased your corpus, run this to recreate it:
@@ -15,7 +18,7 @@ corpus_token_SA <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
   as_tibble()  %>%
   group_by(doc_id) %>%
   mutate(sentence_id = seq_along(sentence)) %>%
-  slice_sample(n = 150) %>% # random 150 sentences per text
+  slice_sample(n = 100) %>% # random 150 sentences per text
   ungroup() %>%
   mutate(sentence = str_replace_all(sentence, pattern = "ſ", replacement = "s")) %>%
   left_join(read_excel(
@@ -137,7 +140,7 @@ corpus_token_SA %>%
   janitor::tabyl(type, collection)
 
 
-# opr with visuals
+# or with visuals
 
 corpus_token_SA %>%
   filter(!is.na(type)) %>%
@@ -149,8 +152,7 @@ corpus_token_SA %>%
         axis.title.x = element_blank(),
         axis.title.y = element_blank()) +
   scale_fill_sjplot("ipsum") +
-  ggtitle("corpus") +
-  ylim(... = c(0, 0.8)) +
+  ggtitle("space items percentages in CH and DE collections") +
   facet_wrap(.~collection)
 
 # we can also have a look at which places are more present in the corpus
@@ -164,8 +166,7 @@ corpus_token_SA %>%
   select(collection, token, n, category) %>%
   rename(place = token)  %>%
   rename(token_count = n) %>%
-  arrange(collection, category, desc(token_count)) %>%
-  left_join(cooord_matches)
+  arrange(desc(token_count), category, collection)
   
 # and which spatial terms
 
@@ -215,7 +216,7 @@ tm_shape(DT_sf) +
 # most frequent items
 
 top_freq_space <- corpus_space %>%
-  filter(n >= 10)
+  filter(n >= 5)
 
 top_freq_space <- st_as_sf(top_freq_space, coords = c("longitude", "latitude"), crs = 4326)
 
@@ -250,10 +251,16 @@ corpus_space <- corpus_token_SA %>%
   filter(category != "urban") %>%
   filter(category != "nat_terms") %>%
   filter(!is.na(type)) %>%
-  group_by(token, AAPz) %>%
+  group_by(token) %>%
   summarise(n = n(),
             place = token,
-            AAPz = mean(AAPz)) %>%
+            AAPz = mean(AAPz),
+            hap_z = mean(hap_z),
+            ang_z = mean(ang_z),
+            sad_z = mean(sad_z),
+            surp_z = mean(surp_z),
+            fear_z = mean(fear_z),
+            disg_z = mean(disg_z)) %>%
   filter(!is.na(AAPz)) %>%
   left_join(cooord_matches) %>%
   filter(!is.na(latitude) | !is.na(longitude)) %>%
@@ -265,6 +272,18 @@ corpus_space <- st_as_sf(corpus_space, coords = c("longitude", "latitude"), crs 
 tm_shape(corpus_space) +
   tm_dots(col = "AAPz", size = "AAPz")
   # tm_text(text = "place")
+
+tm_shape(corpus_space) +
+  tm_dots(col = "hap_z", size = "hap_z")
+# tm_text(text = "place")
+
+tm_shape(corpus_space) +
+  tm_dots(col = "fear_z", size = "fear_z")
+# tm_text(text = "place")
+
+tm_shape(corpus_space) +
+  tm_dots(col = "disg_z", size = "disg_z")
+# tm_text(text = "place")
 
 # we can also examine how the presence of entitiees compare to the entities in the space lists
 
@@ -328,4 +347,57 @@ table1(~ AAPz +
 
 
 # or have a more "qualitative" look at places and their values
+
+# we can have a look graphically at the space item freuqencies
+
+corpus_token_SA %>%
+  filter(!is.na(category)) %>%
+  group_by(token, category, collection
+  ) %>%
+  summarise(freq = n()) %>%
+  arrange(desc(freq)) %>%
+  head(50) %>%
+  ungroup() %>%
+  # pivot_wider(values_from = freq, names_from = type) %>%
+  ggplot(aes(x=freq,
+             y=reorder(token, freq),
+             label=freq, color=category, fill=category)) +
+  geom_bar(stat = "identity", width = .15) +
+  geom_point() +
+  geom_text(nudge_x = 10) +
+  ylab("interior item") +
+  xlab("number of total occurrences in corpus") +
+  facet_wrap(. ~ collection)
+
+
+
+# spatial items with higher AAPz value 
+
+corpus_token_SA %>%
+  group_by(type, token) %>%
+  summarise(n = mean(AAPz)) %>%
+  arrange(type, desc(n)) %>% # highest on top
+  mutate(top = seq_along(token)) %>% # identify rank within group
+  filter(top <= 15) %>% # keep top 15 frequent words
+  ggplot(aes(x = -top, fill = type)) +
+  # create barplot
+  geom_bar(aes(y = n), stat = 'identity', width = .05) +
+  geom_point(aes(y = n), stat = 'identity') +
+  # make sure words are printed either in or next to bar
+  geom_text(aes(y = 0.5,
+                label = paste0(token, ", ", round(n, 3))), size = fs/3, hjust = "left", nudge_x = .55) +
+  theme(legend.position = 'none', # remove legend
+        text = element_text(size = fs), # determine fs
+        axis.text.x = element_text(angle = 45, hjust = 1), # rotate x text
+        axis.ticks.y = element_blank(), # remove y ticks
+        axis.text.y = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank()) + # remove y text
+  labs(title = "Highest avg_annotation_valence of interior items (sentence) by space type") +
+  facet_grid(. ~ type,  # scales="free_x"
+  ) + # separate plot for each sentiment
+  coord_flip()  + # flip axes
+  # scale_fill_sjplot("ipsum") +
+  geom_hline(aes(yintercept=0)) +
+  ylim(-1, 5)
 

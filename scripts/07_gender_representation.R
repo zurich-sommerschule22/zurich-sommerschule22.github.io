@@ -14,7 +14,7 @@ corpus_token_SA <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
   as_tibble()  %>%
   group_by(doc_id) %>%
   mutate(sentence_id = seq_along(sentence)) %>%
-  slice_sample(n = 150) %>% # random 150 sentences per text
+  slice_sample(n = 100) %>% # random 150 sentences per text
   ungroup() %>%
   mutate(sentence = str_replace_all(sentence, pattern = "ſ", replacement = "s")) %>%
   left_join(read_excel(
@@ -85,12 +85,6 @@ corpus_token_SA <- corpus_token_SA %>%
     german_names
   )
 
-corpus_aggr <- corpus_token_SA %>%
-  select(-sentence) %>%
-  aggregate()
-  left_join(
-    german_names
-  )
 
 corpus_token_SA_total <- corpus_token_SA %>%
   select(doc_id, sentence_id, token_id) %>%
@@ -111,7 +105,7 @@ male_total <- corpus_token_SA %>%
 
 
 
-corpus_meta %>%
+corpus_token_SA %>%
   select(author, gender) %>%
   distinct() %>%
   group_by(gender) %>%
@@ -120,7 +114,7 @@ corpus_meta %>%
   geom_col() +
   geom_text(nudge_y = 2)
 
-corpus_meta %>%
+corpus_token_SA %>%
   select(author, gender, pub_date) %>%
   distinct() %>%
   group_by(gender, pub_date) %>%
@@ -133,15 +127,13 @@ german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>
   select(-lang, -value)
 
 
-corpus_token_SA_sentiment <- corpus_token_SA %>%
+corpus_token_SA <- corpus_token_SA %>%
   left_join(german_sents, by = c("token"="word"))
 
-remove(corpus_token_SA)
-gc()
 
 # overall proportion of sentiment words in corpus by gender
 
-corpus_token_SA_sentiment %>%
+corpus_token_SA %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
   group_by(gender, sentiment) %>%
@@ -157,7 +149,7 @@ corpus_token_SA_sentiment %>%
 
 # discrete emotions count per year
 
-corpus_token_SA_sentiment %>%
+corpus_token_SA %>%
   filter(sentiment != "positive" & sentiment != "negative") %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
@@ -169,7 +161,7 @@ corpus_token_SA_sentiment %>%
   geom_point() +
   facet_grid(. ~ gender)
 
-corpus_token_SA_sentiment %>%
+corpus_token_SA %>%
   filter(sentiment == "positive" | sentiment == "negative") %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   group_by(sentiment, pub_date) %>%
@@ -184,7 +176,7 @@ corpus_token_SA_sentiment %>%
 
 # positive/negative by year and gender
 
-corpus_token_SA_sentiment %>%
+corpus_token_SA %>%
   filter(sentiment == "positive" | sentiment == "negative") %>%
   mutate(sentiment = as.factor(sentiment)) %>%
   group_by(sentiment, pub_date, gender) %>%
@@ -200,7 +192,7 @@ corpus_token_SA_sentiment %>%
 
 # represented gender -----------------
 
-corpus_token_SA_aggregated <- corpus_token_SA_sentiment %>%
+corpus_token_SA_aggregated <- corpus_token_SA %>%
   filter(!is.na(sentiment)) %>%
   mutate(sentiment_value = 1) %>%
   # mutate(sentiment_item = ifelse(sentiment_value == 1, token, NA)) %>%
@@ -237,7 +229,7 @@ remove(stop_german2)
 
 ### FEMALE corpus --------
 
-corpus_gender_female <- corpus_token_SA_sentiment %>%
+corpus_gender_female <- corpus_token_SA %>%
   select(author,
          title,
          doc_id,
@@ -276,9 +268,9 @@ corpus_gender_female <- corpus_token_SA_sentiment %>%
             is_gender_word = 1)
 
 
+# MALE corpus
 
-
-corpus_gender_male <- corpus_token_SA_sentiment %>%
+corpus_gender_male <- corpus_token_SA %>%
   select(author,
          title,
          doc_id,
@@ -313,6 +305,7 @@ corpus_gender_male <- corpus_token_SA_sentiment %>%
             gender_type = "male",
             is_gender_word = 1)
 
+# GENDER CORPUS
 
 corpus_gender <- bind_rows(corpus_gender_female, corpus_gender_male)
 remove(corpus_gender_female, corpus_gender_male)
@@ -323,6 +316,7 @@ corpus_token_SA_aggregated <- corpus_token_SA_aggregated %>%
 
 remove(german_names, german_sents)
 
+# mean sentiment (NRC lexicon)
 
 library(table1)
 
