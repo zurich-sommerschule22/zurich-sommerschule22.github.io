@@ -1,0 +1,1 @@
+Cloned from: https://bitbucket.org/rklinger/german-emotion-dictionary.git
