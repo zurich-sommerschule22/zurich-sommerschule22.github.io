@@ -23,17 +23,12 @@
   
 # PS: Have you noticed that there is a little symbol on the top right of this panel, made of little horizontal lines? it is the document outline. if you write a comment and put a series of hashes after it, will become the header of a section, which you can then see in the outline for an easier navigation of the script. You can hide or visualise the outline by clicking on the button.
 
-
-
 library(tidyverse)
-library(readr)
 library(data.table)
 library(syuzhet)
-library(tm)
 library(tidytext)
 library(sjPlot)
 library(wordcloud)
-library(textdata)
 library(readtext)
 
 

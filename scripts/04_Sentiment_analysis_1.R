@@ -37,18 +37,11 @@
 # Before you begin you will need to load some packages. These allow you to execute specific operations.
 # If you have not done so already, you have to install them first: it might take a few minutes and you only have to do it once. If R asks you whether you want to install dependencies for the packages, say yes.
 
-# install.packages("tidyverse")
-# install.packages("readr")
-# install.packages("data.table")
-# install.packages("tm")
-# install.packages("tidytext")
-# install.packages("syuzhet")
-# install.packages("sjPlot")
-# install.packages("wordcloud")
-# install.packages("readxl")
-# install.packages("vroom")
-# install.packages("readtext")
-
+install.packages("tidyverse")
+install.packages("tidytext")
+install.packages("readtext")
+install.packages("readxl")
+install.packages("syuzhet")
 
 # Once you have installed the packages you can comment the installation code like this (as mentioned, with "# " at the beginning of a line):
 
@@ -58,16 +51,11 @@
 
 
 library(tidyverse)
-library(readxl)
-library(readr)
-library(data.table)
-library(syuzhet)
-library(tm)
 library(tidytext)
-library(sjPlot)
-library(wordcloud)
-library(vroom)
 library(readtext)
+library(readxl)
+library(syuzhet)
+
 
 
 # Importing data ----
@@ -86,8 +74,8 @@ library(readtext)
 
 
 federer_pilatus <- read.delim("samples/federer_pilatus_1912.txt", # this is the url to your file
-                    fileEncoding = "utf-8",  # we want to read it as unicode text
-                    header = F) %>% # we do not want the first line as a header 
+                              fileEncoding = "utf-8",  # we want to read it as unicode text
+                              header = F) %>% # we do not want the first line as a header 
   rename(text = V1) # we can name the column text
 
 # your file has been imported! in this case, it looks just fine.
@@ -186,8 +174,6 @@ head(pride_excel)
 
 # the procedure similar to the one we saw for the txt files, except it has read_excel as function, and it does not need to add a header or other variables
 
-corpus_files <- list.files(path = "samples", pattern = "*.xlsx",  full.names = T)
-
 corpus_source <- readtext("samples/*.xlsx")
 
 head(corpus_source)
@@ -211,7 +197,7 @@ structure(kafka_all)
 
 kafka_werke <- kafka_all[[9]][[1]]
 
-
+head(kafka_werke)
 
 # ---------------- SENTIMENT ANALYSIS
 
@@ -256,18 +242,17 @@ syuzhet_de <- get_sentiment_dictionary(language = "german")
 
 # simple SA with syuzhet -----
 
-# syuzhet allows you to run basic SA operations very easily.
+# syuzhet allows you to run basic SA operations very easily, like extracting the sentiment value per sentence into a vector of values for the text by federer.
 
 federer_sents <- syuzhet::get_sentiment(corpus$sentence[grepl("federer", corpus$author)], language = "german")
 
-# jsut to check, you can verify that the numeber of sentiment values in the federer_sents vector equals the number of sentences 
-# that have "federer" as an author:
+# if you want to check that it did really took values for sentences, you can verify that the number of sentiment values in the federer_sents vector equals the number of sentences in the corpus that have "federer" as an author:
 
 nrow(corpus[grepl("federer", corpus$author), "sentence"]) == length(federer_sents)
 
 
 
-# syuzhet produces 
+# syuzhet produces also plots
 
 plot(
   federer_sents, 
@@ -289,7 +274,7 @@ corpus_token %>%
   summarise(sentiment_value = mean(value, na.rm=T)) %>%
   ggplot(aes(title, sentiment_value)) +
   geom_point(size=3)
-  
+
 
 # or per pub_year
 
@@ -301,9 +286,13 @@ corpus_token %>%
   ggplot(aes(year, sentiment_value)) +
   geom_point(size=3)
 
+# let's remove again unnecessary files
 
+remove(syuzhet_de, syuzhet_nrc, corpus, federer_sents)
 
+# and free empty cells
 
+gc()
 
 
 # Also, it is important to remember that dictionaries within packages can be updated or change over time (or become unavailable). 
@@ -370,7 +359,7 @@ corpus_token %>%
   geom_point(size=3)
 
 
-# you can already see that syuzhet and sentiart appear to have very similar results.
+# you can already see that syuzhet and sentiart appear to have very similar results, but remember that sometimes lexicons have different outcomes
 
 
 
