@@ -9,6 +9,8 @@ title: resources
 
 ## Resources
 
+### Github cloning link: https://github.com/zurich-sommerschule22/zurich-sommerschule22.github.io.git
+
 ### [Summer School Program](summer_school_program.md)
 
 ### [Zürich Central Library Event Page](https://www.zb.uzh.ch/en/events/summer-school-raum-und-affekt-einfuhrung-ins-text-mining-literarischer-texte?date=408)
