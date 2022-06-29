@@ -181,7 +181,8 @@ corpus_token_SA %>%
   rename(token_count = n) %>%
   arrange(desc(token_count), category, collection) 
 
-# if we want to make a map, we only need to preserve the tokes that are alsp geolocation with lan/lon
+# if we want to make a map, we only need to preserve the tokes that are also geolocation with lan/lon
+# so we can create a dedicated corpus
 
 corpus_space <- corpus_token_SA %>% 
   filter(category != "rural") %>%
@@ -243,8 +244,7 @@ tm_shape(mountains_space) +
 
 #---------- can we plot sentiment?
 
-# we can average values per place in sentences that contain a geolocation,
-# and obtain approximate sentiment values in relation to a location
+# right now, with a tokenised corpus, we just get sentiment for spatial entiteis if these are in the sentiart list
 
 corpus_space <- corpus_token_SA %>% 
   filter(category != "rural") %>%
@@ -284,6 +284,7 @@ tm_shape(corpus_space) +
 tm_shape(corpus_space) +
   tm_dots(col = "disg_z", size = "disg_z")
 # tm_text(text = "place")
+
 
 # we can also examine how the presence of entitiees compare to the entities in the space lists
 
@@ -346,9 +347,17 @@ table1(~ AAPz +
          sad_z | collection * category, corpus_token_SA) 
 
 
+# The sentiment values we have seen, however, do not really tell us about the sentiment that "surround" the spatial entity, but only how the entities are rated in the existing lexicon, and how frequent they are.
+
+# what we need to understand how the space is represented, is to average the sentiment value by sentence.
+# we have done that already in our sentiment analysis script 2.
+# we can average values per place in sentences that contain a geolocation,
+# and obtain approximate sentiment values in relation to a location
+
+
 # or have a more "qualitative" look at places and their values
 
-# we can have a look graphically at the space item freuqencies
+# we can have a look graphically at the space item frequencies
 
 corpus_token_SA %>%
   filter(!is.na(category)) %>%
@@ -371,7 +380,7 @@ corpus_token_SA %>%
 
 
 
-# spatial items with higher AAPz value 
+# space type with higher AAPz value 
 
 corpus_token_SA %>%
   group_by(type, token) %>%
@@ -400,4 +409,168 @@ corpus_token_SA %>%
   # scale_fill_sjplot("ipsum") +
   geom_hline(aes(yintercept=0)) +
   ylim(-1, 5)
+
+
+
+
+
+## spatial terms URBAN RURAL by count --------------
+
+### URBAN --------
+
+corpus_spatial_urb <- corpus_token_SA %>%
+  left_join(
+    all_entities %>%
+      rename(token = word) %>%
+      anti_join(stop_german) %>%
+      filter(type != "interior") %>%
+      filter(type_grouped == "URBAN") %>%
+      mutate(is_spatial = 1) %>%
+      select(token, is_spatial, type_grouped)
+    )
+
+corpus_spatial_urb <- corpus_spatial_urb %>%
+  mutate(spatial_item = ifelse(is_spatial == 1, token, NA))
+
+corpus_spatial_urb  <- corpus_spatial_urb %>%
+  dplyr::group_by(author,
+                  title,
+                  doc_id,
+                  sentence_id,
+  ) %>%
+  summarise(spatial_count = sum(is_spatial, na.rm=T),
+            spatial_item = paste0(list(spatial_item[!is.na(spatial_item)])),
+            space_type = paste0(list(as.character(type_grouped)[!is.na(type_grouped)])))
+
+corpus_spatial_urb$spatial_item[corpus_spatial_urb$spatial_item == "character(0)"] <- NA
+corpus_spatial_urb$space_type[corpus_spatial_urb$space_type == "character(0)"] <- NA
+
+corpus_spatial_urb <- corpus_spatial_urb %>%
+  filter(!is.na(spatial_item))
+
+corpus_spatial_urb$space_type <- "URBAN"
+
+
+### RURAL ------------------
+
+corpus_spatial_rur <- corpus_token_SA %>%
+  left_join(
+    all_entities %>%
+      rename(token=word) %>%
+      anti_join(stop_german) %>%
+      filter(type != "interior") %>%
+      filter(type_grouped == "RURAL") %>%
+      mutate(is_spatial = 1) %>%
+      select(token, is_spatial, type_grouped)
+    )
+
+corpus_spatial_rur <- corpus_spatial_rur %>%
+  mutate(spatial_item = ifelse(is_spatial == 1, token, NA))
+
+corpus_spatial_rur  <- corpus_spatial_rur %>%
+  dplyr::group_by(author,
+                  title,
+                  doc_id,
+                  sentence_id,
+  ) %>%
+  summarise(spatial_count = sum(is_spatial, na.rm=T),
+            spatial_item = paste0(list(spatial_item[!is.na(spatial_item)])),
+            space_type = paste0(list(as.character(type_grouped)[!is.na(type_grouped)])))
+
+corpus_spatial_rur$spatial_item[corpus_spatial_rur$spatial_item == "character(0)"] <- NA
+corpus_spatial_rur$space_type[corpus_spatial_rur$space_type == "character(0)"] <- NA
+
+corpus_spatial_rur <- corpus_spatial_rur %>%
+  filter(!is.na(spatial_item))
+
+corpus_spatial_rur$space_type <- "RURAL"
+
+
+corpus_spatial <- bind_rows(corpus_spatial_rur, corpus_spatial_urb)
+
+
+# for the merging, we need our "long" corpus with SA values aggregated by setniment
+
+# 
+
+###  corpus long -----------
+
+corpus_aggr_long <- corpus_token_SA %>%
+  select(collection,
+         author,
+         title,
+         doc_id,
+         pub_date,
+         sentence_id,
+         sentence, 
+         AAPz,
+         fear_z,
+         disg_z,
+         hap_z,
+         sad_z,
+         surp_z,
+         ang_z)  %>%
+  dplyr::group_by(collection, 
+                  author,
+                  title,
+                  doc_id, 
+                  sentence_id,
+                  sentence,
+                  pub_date) %>%
+  dplyr::summarise(words_sent = n(),
+                   Sentiart_AAPz_mean = ifelse(!is.nan(mean(AAPz, na.rm = T)), mean(AAPz, na.rm = T), NA),
+                   Sentiart_fear_z_mean = ifelse(!is.nan(mean(fear_z, na.rm = T)), mean(fear_z, na.rm = T), NA),
+                   Sentiart_disg_z_mean = ifelse(!is.nan(mean(disg_z, na.rm = T)), mean(disg_z, na.rm = T), NA),
+                   Sentiart_hap_z_mean = ifelse(!is.nan(mean(hap_z, na.rm = T)), mean(hap_z, na.rm = T), NA),
+                   Sentiart_sad_z_mean = ifelse(!is.nan(mean(sad_z, na.rm = T)), mean(sad_z, na.rm = T), NA),
+                   Sentiart_surp_z_mean = ifelse(!is.nan(mean(surp_z, na.rm = T)), mean(surp_z, na.rm = T), NA),
+                   Sentiart_ang_z_mean = ifelse(!is.nan(mean(ang_z, na.rm = T)), mean(ang_z, na.rm = T), NA),
+  ) %>%
+  select(-words_sent)  %>%
+  pivot_longer(c("Sentiart_AAPz_mean",
+                 "Sentiart_fear_z_mean",
+                 "Sentiart_disg_z_mean",
+                 "Sentiart_hap_z_mean",
+                 "Sentiart_sad_z_mean",
+                 "Sentiart_surp_z_mean",
+                 "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" )
+
+
+corpus_aggr_long <- corpus_aggr_long %>%
+  left_join(corpus_spatial)
+
+remove(corpus_spatial, corpus_spatial_rur, corpus_spatial_urb)
+
+
+corpus_aggr_long <- corpus_aggr_long %>%
+  mutate(spatial_count = ifelse(is.na(spatial_count), 0, spatial_count))
+
+
+
+# now we can look at the average sentiment values per "space type"
+
+corpus_aggr_long %>%
+  group_by(space_type, sentiment) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
+  ggplot(aes(x=space_type, y=sentiment_value, fill=sentiment)) +
+  geom_col(position="dodge")
+
+
+# or look at the highest rating for a specific sentiment per type
+
+corpus_aggr_long %>%
+  filter(sentiment == "Sentiart_AAPz_mean") %>%
+  filter(!is.na(space_type)) %>%
+  group_by(sentiment, space_type, sentence_id) %>%
+  arrange(desc(sentiment_value)) %>%
+  head(15) %>%
+  view()
+
+corpus_aggr_long %>%
+  filter(sentiment == "Sentiart_disg_z_mean") %>%
+  filter(!is.na(space_type)) %>%
+  group_by(sentiment, space_type, sentence_id) %>%
+  arrange(desc(sentiment_value)) %>%
+  head(15) %>%
+  view()
 
