@@ -33,7 +33,7 @@ p <- udpipe(x = my_text, object = "german")
 load("scripts/samples/TS_corpus_small.RData")
 
 # first, let's find the appearances of a certain word in the text
-lemma_found <- which(corpus_small$lemma== "Kanal")
+lemma_found <- which(corpus_small$lemma== "Auge")
 
 ### Our Turn (1) - start
 
