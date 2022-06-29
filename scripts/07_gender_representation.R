@@ -130,6 +130,7 @@ corpus_token_SA %>%
 corpus_aggr_long <- corpus_token_SA %>%
   select(collection,
          author,
+         gender,
          title,
          doc_id,
          pub_date,
@@ -144,6 +145,7 @@ corpus_aggr_long <- corpus_token_SA %>%
          ang_z)  %>%
   dplyr::group_by(collection, 
                   author,
+                  gender,
                   title,
                   doc_id, 
                   sentence_id,
@@ -165,7 +167,8 @@ corpus_aggr_long <- corpus_token_SA %>%
                "Sentiart_hap_z_mean",
                "Sentiart_sad_z_mean",
                "Sentiart_surp_z_mean",
-               "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" )
+               "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" ) %>%
+  rename(author_gender = gender)
   
 
 
@@ -181,34 +184,27 @@ corpus_aggr_long <- corpus_token_SA %>%
 #   left_join(german_sents, by = c("token"="word"))
 
 
-# overall proportion of sentiment words in corpus by gender
+# mean sentiment in corpus by author gender
 
 corpus_aggr_long %>%
-  mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
-  group_by(gender_type, sentiment) %>%
-  count() %>%
-  group_by(sentiment, gender, n) %>%
+  group_by(author_gender, sentiment) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
+  group_by(sentiment, author_gender) %>%
   filter(!is.na(sentiment)) %>%
-  summarise(sentiment_percent = ifelse(gender == "m", n*100/male_total, n*100/female_total),
-            word_total = ifelse(gender == "m", male_total, female_total)) %>%
-  ggplot(aes(x=sentiment, y=sentiment_percent, fill=gender)) +
-  geom_col(position = "dodge")
+  ggplot(aes(x=sentiment, y=sentiment_value, fill=author_gender)) +
+  geom_col(position = "dodge", stats="identity")
 
 
 
-# discrete emotions count per year
+# mean emotions count per year
 
-corpus_token_SA %>%
-  filter(sentiment != "positive" & sentiment != "negative") %>%
-  mutate(sentiment = as.factor(sentiment)) %>%
-  mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
-  group_by(sentiment, pub_date, gender) %>%
-  count() %>%
-  group_by(sentiment, pub_date, n, gender) %>%
-  summarise(sent_prop = n*100/corpus_token_SA_total) %>%
-  ggplot(aes(x=pub_date, y=sent_prop, color=sentiment)) +
+corpus_aggr_long %>%
+  group_by(sentiment, pub_date, author_gender) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
+  group_by(sentiment, pub_date, author_gender) %>%
+  ggplot(aes(x=pub_date, y=sentiment_value, color=sentiment)) +
   geom_point() +
-  facet_grid(. ~ gender)
+  facet_grid(. ~ author_gender)
 
 corpus_token_SA %>%
   filter(sentiment == "positive" | sentiment == "negative") %>%
