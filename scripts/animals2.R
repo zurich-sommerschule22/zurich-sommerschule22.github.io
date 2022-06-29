@@ -81,54 +81,6 @@ german_names <- german_names %>%
 remove(doubles_st)
 
 
-corpus_token_SA <- corpus_token_SA %>%
-  left_join(
-    german_names
-  )
-
-
-corpus_token_SA_total <- corpus_token_SA %>%
-  select(doc_id, sentence_id, token_id) %>%
-  distinct() %>%
-  nrow()
-
-female_total <- corpus_token_SA %>%
-  select(doc_id, sentence_id, gender, token_id) %>%
-  distinct() %>%
-  filter(gender == "w") %>%
-  nrow()
-
-male_total <- corpus_token_SA %>%
-  select(doc_id, sentence_id, gender, token_id) %>%
-  distinct() %>%
-  filter(gender == "m") %>%
-  nrow()
-
-
-
-# proportion of gender by author
-
-corpus_token_SA %>%
-  select(author, gender) %>%
-  distinct() %>%
-  group_by(gender) %>%
-  count() %>%
-  ggplot(aes(y=n, x=gender, fill=gender, label=n)) +
-  geom_col() +
-  geom_text(nudge_y = 2)
-
-# over time
-
-corpus_token_SA %>%
-  select(author, gender, pub_date) %>%
-  distinct() %>%
-  group_by(gender, pub_date) %>%
-  count() %>%
-  ggplot(aes(y=n, x=pub_date, color=gender)) +
-  geom_smooth()
-
-
-
 ###  corpus long -----
 
 corpus_aggr_long <- corpus_token_SA %>%
@@ -166,98 +118,96 @@ corpus_aggr_long <- corpus_token_SA %>%
   ) %>%
   select(-words_sent)  %>%
   pivot_longer(c("Sentiart_AAPz_mean",
-               "Sentiart_fear_z_mean",
-               "Sentiart_disg_z_mean",
-               "Sentiart_hap_z_mean",
-               "Sentiart_sad_z_mean",
-               "Sentiart_surp_z_mean",
-               "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" ) %>%
-  rename(author_gender = gender)
-  
+                 "Sentiart_fear_z_mean",
+                 "Sentiart_disg_z_mean",
+                 "Sentiart_hap_z_mean",
+                 "Sentiart_sad_z_mean",
+                 "Sentiart_surp_z_mean",
+                 "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" )
 
 
-# ------------
+### ANIMAL corpus --------
+
+animals <- read_excel("animals.xlsx", col_types = c("skip", "text")) %>%
+  mutate(is_animal = 1) %>%
+  mutate(animal_item = word) %>%
+  rename(token = word)
+
+corpus_animals <- corpus_token_SA %>%
+  left_join(
+    animals
+  ) %>%
+  dplyr::group_by(collection,
+                  author,
+                  title,
+                  doc_id,
+                  sentence,
+                  sentence_id) %>%
+  summarise(animal_count = sum(is_animal, na.rm=T),
+            animal_item = paste0(list(animal_item[!is.na(animal_item)])))
+
+corpus_animals$animal_item[corpus_animals$animal_item == "character(0)"] <- NA
+
+corpus_animals <- corpus_animals %>%
+  filter(!is.na(animal_item))
+
+
+corpus_aggr_long <- corpus_aggr_long %>%
+  left_join(corpus_animals)
+
+
+remove(corpus_animals)
+
+# mean sentiment by represented gender (Sentiart)
+
+library(table1)
+
+corpus_aggr_long %>%
+  filter(!is.na(animal_item)) %>%
+  group_by(title, sentiment) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T),
+            animal_count = sum(animal_count, na.rm=T)) %>%
+  ggplot(aes(y=sentiment_value, x=animal_count, fill=sentiment, label=round(sentiment_value, 3))) +
+  geom_smooth() +
+  facet_wrap(. ~ sentiment) +
+  ggtitle("Mean sentiment values in sentences with animal words")
 
 
 
-# german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>%
-#   select(-lang, -value)
-# 
-# 
-# corpus_token_SA <- corpus_token_SA %>%
-#   left_join(german_sents, by = c("token"="word"))
 
-
-# mean sentiment in corpus by author gender
+# and by author
 
 corpus_aggr_long %>%
   group_by(author_gender, sentiment) %>%
   summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
-  group_by(sentiment, author_gender) %>%
-  filter(!is.na(sentiment)) %>%
-  ggplot(aes(x=sentiment, y=sentiment_value, fill=author_gender)) +
-  geom_col(position = "dodge", stats="identity")
+  ggplot(aes(y=sentiment_value, x=author_gender, fill=author_gender, label=round(sentiment_value, 3))) +
+  geom_col(position="dodge") +
+  geom_text(nudge_y = -.2) +
+  facet_wrap(. ~ sentiment) +
+  ggtitle("Mean sentiment values in sentences by author gender")
 
 
 
-# mean sentiment value per year by gender
+# keywords
 
-corpus_aggr_long %>%
-  group_by(sentiment, pub_date, author_gender) %>%
-  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
-  group_by(sentiment, pub_date, author_gender) %>%
-  ggplot(aes(x=pub_date, y=sentiment_value, color=sentiment)) +
-  geom_point() +
-  geom_smooth() +
-  facet_grid(sentiment ~ author_gender) +
-  theme(legend.position = "right")
-  
+library(quanteda)
 
+toks <- corpus_aggr_long %>%
+  select(sentence, sentence_id) %>%
+  distinct()
 
-# represented gender -----------------
+toks <- toks$sentence
 
+toks <- quanteda::corpus(toks)
 
+quanteda::kwic(tokens(toks), pattern = "Frau")
 
-# 
-# corpus_aggr_long <- corpus_token_SA %>%
-#   filter(!is.na(sentiment)) %>%
-#   mutate(sentiment_value = 1) %>% 
-#   rename(author_gender = gender) %>%
-#   # mutate(sentiment_item = ifelse(sentiment_value == 1, token, NA)) %>%
-# 
-#   dplyr::group_by(author,
-#                   author_gender,
-#                   title,
-#                   pub_date,
-#                   doc_id, 
-#                   sentence_id,
-#                   sentence,
-#                   sentiment) %>%
-#   
-#   summarise(sentiment_value = sum(sentiment_value, na.rm = T),
-#             # sentiment_item = paste0(list(sentiment_item[!is.na(sentiment_item)]))
-#             )
-# 
-# 
+quanteda::kwic(tokens(toks), pattern = "Mann")
 
 
+head(tokens_ngrams(tokens(paste0(frau_kwic$pre, frau_kwic$post), remove_punct = TRUE)), 30)
 
-
-## proper names index ----------------
-
-
-stop_german <- tibble(word = stopwords::stopwords("de"))
-
-stop_german2 <- stop_german
-stop_german2$word <- str_to_sentence(stop_german2$word)
-stop_german <- bind_rows(stop_german, stop_german2)
-remove(stop_german2)
-
-
-
-### FEMALE corpus --------
-
-corpus_gender_female <- corpus_token_SA %>%
+corpus_animals <- corpus_token_SA %>%
   select(author,
          title,
          doc_id,
@@ -266,7 +216,7 @@ corpus_gender_female <- corpus_token_SA %>%
          token,
          token_id) %>%
   distinct() %>%
-  left_join(german_names %>%
+  left_join(animal %>%
               filter(gender == "w") %>%
               anti_join(stop_german, by = c("first_name" = "word")) %>%
               rename(name_gender = gender),
@@ -298,7 +248,7 @@ corpus_gender_female <- corpus_token_SA %>%
 
 # MALE corpus
 
-corpus_gender_male <- corpus_token_SA %>%
+corpus_animals <- corpus_token_SA %>%
   select(author,
          title,
          doc_id,
@@ -335,8 +285,8 @@ corpus_gender_male <- corpus_token_SA %>%
 
 # GENDER CORPUS
 
-corpus_gender <- bind_rows(corpus_gender_female, corpus_gender_male)
-remove(corpus_gender_female, corpus_gender_male)
+corpus_gender <- bind_rows(corpus_gender_female, corpus_animals)
+remove(corpus_gender_female, corpus_animals)
 
 corpus_aggr_long <- corpus_aggr_long %>%
   left_join(corpus_gender)
