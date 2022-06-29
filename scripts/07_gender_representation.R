@@ -1,6 +1,7 @@
 
 library(tidyverse)
 library(readxl)
+library(tidytext)
 
 
 
@@ -123,20 +124,68 @@ corpus_token_SA %>%
   geom_smooth()
 
 
-german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>%
-  select(-lang, -value)
+
+###  corpus long -----
+
+corpus_aggr_long <- corpus_token_SA %>%
+  select(collection,
+         author,
+         title,
+         doc_id,
+         pub_date,
+         sentence_id,
+         sentence, 
+         AAPz,
+         fear_z,
+         disg_z,
+         hap_z,
+         sad_z,
+         surp_z,
+         ang_z)  %>%
+  dplyr::group_by(collection, 
+                  author,
+                  title,
+                  doc_id, 
+                  sentence_id,
+                  sentence,
+                  pub_date) %>%
+  dplyr::summarise(words_sent = n(),
+                   Sentiart_AAPz_mean = ifelse(!is.nan(mean(AAPz, na.rm = T)), mean(AAPz, na.rm = T), NA),
+                   Sentiart_fear_z_mean = ifelse(!is.nan(mean(fear_z, na.rm = T)), mean(fear_z, na.rm = T), NA),
+                   Sentiart_disg_z_mean = ifelse(!is.nan(mean(disg_z, na.rm = T)), mean(disg_z, na.rm = T), NA),
+                   Sentiart_hap_z_mean = ifelse(!is.nan(mean(hap_z, na.rm = T)), mean(hap_z, na.rm = T), NA),
+                   Sentiart_sad_z_mean = ifelse(!is.nan(mean(sad_z, na.rm = T)), mean(sad_z, na.rm = T), NA),
+                   Sentiart_surp_z_mean = ifelse(!is.nan(mean(surp_z, na.rm = T)), mean(surp_z, na.rm = T), NA),
+                   Sentiart_ang_z_mean = ifelse(!is.nan(mean(ang_z, na.rm = T)), mean(ang_z, na.rm = T), NA),
+  ) %>%
+  select(-words_sent)  %>%
+  pivot_longer(c("Sentiart_AAPz_mean",
+               "Sentiart_fear_z_mean",
+               "Sentiart_disg_z_mean",
+               "Sentiart_hap_z_mean",
+               "Sentiart_sad_z_mean",
+               "Sentiart_surp_z_mean",
+               "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" )
+  
 
 
-corpus_token_SA <- corpus_token_SA %>%
-  left_join(german_sents, by = c("token"="word"))
+# ------------
+
+
+
+# german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>%
+#   select(-lang, -value)
+# 
+# 
+# corpus_token_SA <- corpus_token_SA %>%
+#   left_join(german_sents, by = c("token"="word"))
 
 
 # overall proportion of sentiment words in corpus by gender
 
-corpus_token_SA %>%
-  mutate(sentiment = as.factor(sentiment)) %>%
+corpus_aggr_long %>%
   mutate(sentiment_value = as.numeric(ifelse(!is.na(sentiment), 1, 0))) %>%
-  group_by(gender, sentiment) %>%
+  group_by(gender_type, sentiment) %>%
   count() %>%
   group_by(sentiment, gender, n) %>%
   filter(!is.na(sentiment)) %>%
@@ -191,26 +240,27 @@ corpus_token_SA %>%
 
 
 # represented gender -----------------
-
-corpus_token_SA_aggregated <- corpus_token_SA %>%
-  filter(!is.na(sentiment)) %>%
-  mutate(sentiment_value = 1) %>%
-  # mutate(sentiment_item = ifelse(sentiment_value == 1, token, NA)) %>%
-
-  dplyr::group_by(author,
-                  title,
-                  gender,
-                  pub_date,
-                  doc_id, 
-                  sentence_id,
-                  sentence,
-                  sentiment) %>%
-  
-  summarise(sentiment_value = sum(sentiment_value, na.rm = T),
-            # sentiment_item = paste0(list(sentiment_item[!is.na(sentiment_item)]))
-            )
-
-
+# 
+# corpus_aggr_long <- corpus_token_SA %>%
+#   filter(!is.na(sentiment)) %>%
+#   mutate(sentiment_value = 1) %>% 
+#   rename(author_gender = gender) %>%
+#   # mutate(sentiment_item = ifelse(sentiment_value == 1, token, NA)) %>%
+# 
+#   dplyr::group_by(author,
+#                   author_gender,
+#                   title,
+#                   pub_date,
+#                   doc_id, 
+#                   sentence_id,
+#                   sentence,
+#                   sentiment) %>%
+#   
+#   summarise(sentiment_value = sum(sentiment_value, na.rm = T),
+#             # sentiment_item = paste0(list(sentiment_item[!is.na(sentiment_item)]))
+#             )
+# 
+# 
 
 
 
@@ -310,7 +360,7 @@ corpus_gender_male <- corpus_token_SA %>%
 corpus_gender <- bind_rows(corpus_gender_female, corpus_gender_male)
 remove(corpus_gender_female, corpus_gender_male)
 
-corpus_token_SA_aggregated <- corpus_token_SA_aggregated %>%
+corpus_aggr_long <- corpus_aggr_long %>%
   left_join(corpus_gender)
 
 
@@ -320,22 +370,22 @@ remove(german_names, german_sents)
 
 library(table1)
 
-corpus_token_SA_aggregated %>%
+corpus_aggr_long %>%
   group_by(gender_type) %>%
-  summarise(sentiment_value = mean(sentiment_value)) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
   ggplot(aes(y=sentiment_value, x=gender_type, fill=gender_type, label=round(sentiment_value, 3))) +
   geom_col(position="dodge") +
-  geom_text(nudge_y = -.2)
+  geom_text(nudge_y = -.02)
 
-table1::table1(~ sentiment_value | sentiment + gender_type, data=corpus_token_SA_aggregated)
+table1::table1(~ sentiment_value | sentiment + gender_type, data=corpus_aggr_long)
 
 
-corpus_token_SA_aggregated %>%
-  group_by(gender_type, gender) %>%
-  summarise(sentiment_value = mean(sentiment_value)) %>%
+corpus_aggr_long %>%
+  group_by(gender_type) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
   ggplot(aes(y=sentiment_value, x=gender_type, fill=gender_type, label=round(sentiment_value, 3))) +
   geom_col(position="dodge") +
-  facet_wrap(. ~ gender) +
+  facet_wrap(. ~ gender_type) +
   geom_text(nudge_y = -.2)
 
 
@@ -344,7 +394,7 @@ corpus_token_SA_aggregated %>%
 
 library(quanteda)
 
-toks <- corpus_token_SA_aggregated %>%
+toks <- corpus_aggr_long %>%
   select(sentence, sentence_id) %>%
   distinct()
 

@@ -1,30 +1,32 @@
 # animal representaiton
-# 
-# load("TS_corpus.Rdata")
-# 
-# corpus_TS <- corpus_TS %>%
-#   filter(sentence_id >= 30 & sentence_id <= 130) 
-# 
-# save(corpus_TS, file="TS_corpus_small.Rdata")
-# 
-# gc()
 
 
-load("TS_corpus_small.Rdata")
-
-
+library(readtext)
+library(tidyverse)
 library(readxl)
+
+# CORPUS PREP  ------
+
+# first, we want to create our corpus again. can you retrieve the code to do so?
+
+# paste it here
+
+
+# how are you going to identify/find animals in the corpus?
+# you ll find that in the working directory there is a file that could help you
+
 
 animals <- read_excel("animals.xlsx", col_types = c("skip", "text")) %>%
   mutate(is_animal = 1) %>%
   mutate(animal_item = word) %>%
   rename(token = word)
 
-animal_sent <- corpus_TS %>%
+animal_sent <- corpus_token_SA %>%
   left_join(
     animals
   ) %>%
-  dplyr::group_by(author,
+  dplyr::group_by(collection,
+                  author,
                   title,
                   doc_id,
                   sentence,
@@ -37,7 +39,7 @@ animal_sent$animal_item[animal_sent$animal_item == "character(0)"] <- NA
 animal_sent <- animal_sent %>%
   filter(!is.na(animal_item))
 
-corpus_TS <- corpus_TS %>%
+corpus_token_SA <- corpus_token_SA %>%
   left_join(animal_sent)
 
 
@@ -46,16 +48,10 @@ corpus_TS <- corpus_TS %>%
 german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>%
   select(-lang, -value)
 
-
-corpus_TS_sentiment <- corpus_TS %>%
-  left_join(german_sents, by = c("token"="word"))
-
-remove(corpus_TS)
-
-corpus_TS_sentiment <- corpus_TS_sentiment %>%
+corpus_token_SA <- corpus_token_SA %>%
   mutate(sentiment_value = ifelse(!is.na(sentiment), 1, 0))
 
-corpus_TS_sentiment %>%
+corpus_token_SA %>%
   
   ggplot(aes(sentiment_value, animal_count)) +
   geom_smooth()
