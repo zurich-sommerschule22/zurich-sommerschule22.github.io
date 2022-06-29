@@ -204,38 +204,14 @@ corpus_aggr_long %>%
   group_by(sentiment, pub_date, author_gender) %>%
   ggplot(aes(x=pub_date, y=sentiment_value, color=sentiment)) +
   geom_point() +
-  facet_grid(. ~ author_gender)
-
-corpus_token_SA %>%
-  filter(sentiment == "positive" | sentiment == "negative") %>%
-  mutate(sentiment = as.factor(sentiment)) %>%
-  group_by(sentiment, pub_date) %>%
-  count() %>%
-  mutate(n = ifelse(sentiment == "positive", n, -n)) %>%
-  group_by(sentiment, pub_date, n) %>%
-  summarise(sent_prop = n*100/corpus_token_SA_total) %>%
-  ggplot(aes(x=pub_date, y=sent_prop, color=sentiment)) +
-  geom_point() +
-  geom_smooth(se = F)
-
-
-# positive/negative by year and gender
-
-corpus_token_SA %>%
-  filter(sentiment == "positive" | sentiment == "negative") %>%
-  mutate(sentiment = as.factor(sentiment)) %>%
-  group_by(sentiment, pub_date, gender) %>%
-  count() %>%
-  mutate(n = ifelse(sentiment == "positive", n, -n)) %>%
-  group_by(sentiment, pub_date, gender, n) %>%
-  summarise(sent_prop = n*100/corpus_token_SA_total) %>%
-  ggplot(aes(x=pub_date, y=sent_prop, color=sentiment)) +
-  geom_point() +
-  geom_smooth(se = F) +
-  facet_wrap(. ~ gender)
+  facet_grid(. ~ author_gender) +
+  theme(legend.position = "bottom")
 
 
 # represented gender -----------------
+
+
+
 # 
 # corpus_aggr_long <- corpus_token_SA %>%
 #   filter(!is.na(sentiment)) %>%
@@ -362,27 +338,37 @@ corpus_aggr_long <- corpus_aggr_long %>%
 
 remove(german_names, german_sents)
 
-# mean sentiment (NRC lexicon)
+# mean sentiment by represented gender (Sentiart)
 
 library(table1)
 
 corpus_aggr_long %>%
-  group_by(gender_type) %>%
+  group_by(gender_type, sentiment) %>%
   summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
   ggplot(aes(y=sentiment_value, x=gender_type, fill=gender_type, label=round(sentiment_value, 3))) +
   geom_col(position="dodge") +
-  geom_text(nudge_y = -.02)
+  geom_text(nudge_y = -.04) +
+  facet_wrap(. ~ sentiment) +
+  ggtitle("Mean sentiment values in sentences with gendered words")
 
-table1::table1(~ sentiment_value | sentiment + gender_type, data=corpus_aggr_long)
+# schematic representations
 
+table1::table1(~ sentiment_value | sentiment + gender_type, 
+               data=corpus_aggr_long, overall=F)
+
+table1::table1(~ sentiment_value | sentiment + author_gender, 
+               data=corpus_aggr_long, overall=F)
+
+# and by author
 
 corpus_aggr_long %>%
-  group_by(gender_type) %>%
+  group_by(author_gender, sentiment) %>%
   summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
-  ggplot(aes(y=sentiment_value, x=gender_type, fill=gender_type, label=round(sentiment_value, 3))) +
+  ggplot(aes(y=sentiment_value, x=author_gender, fill=author_gender, label=round(sentiment_value, 3))) +
   geom_col(position="dodge") +
-  facet_wrap(. ~ gender_type) +
-  geom_text(nudge_y = -.2)
+  geom_text(nudge_y = -.2) +
+  facet_wrap(. ~ sentiment) +
+  ggtitle("Mean sentiment values in sentences by author gender")
 
 
 
