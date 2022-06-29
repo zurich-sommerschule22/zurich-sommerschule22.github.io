@@ -85,6 +85,17 @@ federer_pilatus <- read.delim("samples/federer_pilatus_1912.txt", # this is the 
 
 head(federer_pilatus)
 
+
+# YOUR TURN 1 ---------
+
+# can you create a corpus with another file in the samples folder?
+
+
+
+
+
+
+
 ## multiple txt files ----------
 
 # if you have more than one text, you probably won't want to repeat this operations manually several times.
@@ -218,8 +229,22 @@ corpus_token %>%
   select(author, title, year) %>%
   distinct()
 
+# with this same scripts we can have a look at which and how many authors there are in our corpus
+
+corpus %>% 
+  select(author) %>%
+  distinct() 
+
+corpus %>% 
+  select(author) %>%
+  distinct() %>%
+  nrow()
 
 
+# YOUR TURN 2
+
+# can you figure out how to print out which years are present in our corpus,
+# and how many they are?
 
 
 
@@ -360,6 +385,11 @@ corpus_token %>%
 
 
 # you can already see that syuzhet and sentiart appear to have very similar results, but remember that sometimes lexicons have different outcomes
+
+
+# YOUR TURN 3 ---------------
+
+# we have only looked at the AAPz value, can you print some plots for the other sentiment vlues?
 
 
 
