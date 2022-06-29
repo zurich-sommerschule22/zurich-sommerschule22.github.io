@@ -9,7 +9,7 @@ title: resources
 
 ## Resources
 
-### Github link: (https://github.com/zurich-sommerschule22/zurich-sommerschule22.github.io.git)
+### Github cloning link: https://github.com/zurich-sommerschule22/zurich-sommerschule22.github.io.git
 
 ### [Summer School Program](summer_school_program.md)
 
