@@ -6,58 +6,19 @@ library(readtext)
 library(sjPlot)
 
 # PREP -----------
-# if you erased your corpus, run this to recreate it:
+# if you erased your corpus, run this to recreate it. can you do that?
+# use the oher scripts to do so
 
-corpus_token_SA <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
-  unnest_sentences(input = "text",
-                   output = "sentence",
-                   to_lower = F, drop = T) %>%
-  as_tibble()  %>%
-  group_by(doc_id) %>%
-  mutate(sentence_id = seq_along(sentence)) %>%
-  slice_sample(n = 100) %>% # random 150 sentences per text
-  ungroup() %>%
-  mutate(sentence = str_replace_all(sentence, pattern = "ſ", replacement = "s")) %>%
-  left_join(read_excel(
-    # "D:/GitHub/zurich-sommerschule22.github.io/corpus/summer_school_corpus_info.xlsx"
-    "summer_school_corpus_info_new.xlsx"
-  ) %>%
-    select(doc_id, title, author, pub_date, first_name, surname, collection)) %>%
-  filter(!is.na(author)) %>%
-  select(collection,
-         doc_id,
-         author,
-         title,
-         first_name,
-         pub_date,
-         sentence,
-         sentence_id) %>%
-  unnest_tokens(input = "sentence", output = "token", to_lower = F, drop = F) %>%
-  group_by(title, sentence_id) %>%
-  mutate(token_id = seq_along(token)) %>%
-  ungroup() %>%
-  mutate(unique_word_id = seq_along(token)) %>%
-  left_join(read.csv("SA_resources/SentiArt.dat",
-                     dec = ",",
-                     encoding = "UTF-8") %>%
-              rename(token = 1) %>%
-              mutate(ang_z = (ang_z - mean(ang_z))/sd(ang_z)) %>%
-              select(-word)
-  )
+## remember, it's called corpus_token_SA
 
-# stopwords list
-
-stop_german <- tibble(word = stopwords::stopwords("de"))
-stop_german2 <- stop_german
-stop_german2$word <- str_to_sentence(stop_german2$word)
-stop_german <- bind_rows(stop_german, stop_german2)
-remove(stop_german2)
-stop_german <- stop_german %>%
-  rename(token = word)
+#
 
 
 
-###  corpus long -----
+
+
+###  Now, as we said for gender and for space, we want aggregated values by sentence
+# corpus long -----
 
 corpus_aggr_long <- corpus_token_SA %>%
   select(collection,
@@ -102,79 +63,49 @@ corpus_aggr_long <- corpus_token_SA %>%
 
 ### ANIMAL corpus --------
 
-animals <- read_excel("animals.xlsx", col_types = c("skip", "text")) %>%
-  mutate(is_animal = 1) %>%
-  mutate(animal_item = word) %>%
-  rename(token = word)
+# can you find a source of animanls in the files in our folder and use it?
 
-corpus_animals <- corpus_token_SA %>%
-  left_join(
-    animals
-  ) %>%
-  dplyr::group_by(collection,
-                  author,
-                  title,
-                  doc_id,
-                  sentence,
-                  sentence_id) %>%
-  summarise(animal_count = sum(is_animal, na.rm=T),
-            animal_item = paste0(list(animal_item[!is.na(animal_item)])))
-
-corpus_animals$animal_item[corpus_animals$animal_item == "character(0)"] <- NA
-
-corpus_animals <- corpus_animals %>%
-  filter(!is.na(animal_item))
+#
 
 
-corpus_aggr_long <- corpus_aggr_long %>%
-  left_join(corpus_animals)
 
 
-remove(corpus_animals)
 
-# mean sentiment by represented gender (Sentiart)
+
+
+
+
+# you can create a corpus of animals. use the FEMALE corpus script from the gender script and adapt it
+
+
+
+
+
+
+
+
+
+# now, we can have a look at our data.
+
+
+# what's the mean sentiment for sentences with animals? (Sentiart)
 
 library(table1)
 
-corpus_aggr_long %>%
-  filter(!is.na(animal_item)) %>%
-  group_by(title, sentiment) %>%
-  summarise(sentiment_value = mean(sentiment_value, na.rm=T),
-            animal_count = sum(animal_count, na.rm=T)) %>%
-  ggplot(aes(y=sentiment_value, x=animal_count, fill=sentiment, label=round(sentiment_value, 3))) +
-  geom_smooth() +
-  facet_wrap(. ~ sentiment) +
-  ggtitle("Mean sentiment values in sentences with animal words")
 
 
 
 
-# and by author
 
-corpus_aggr_long %>%
-  group_by(author_gender, sentiment) %>%
-  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
-  ggplot(aes(y=sentiment_value, x=author_gender, fill=author_gender, label=round(sentiment_value, 3))) +
-  geom_col(position="dodge") +
-  geom_text(nudge_y = -.2) +
-  facet_wrap(. ~ sentiment) +
-  ggtitle("Mean sentiment values in sentences by author gender")
+
+# can you also add a grouping factor author?
 
 
 
-# keywords
 
-library(quanteda)
 
-toks <- corpus_aggr_long %>%
-  select(sentence, sentence_id) %>%
-  distinct()
 
-toks <- toks$sentence
 
-toks <- quanteda::corpus(toks)
-
-quanteda::kwic(tokens(toks), pattern = "Hund")
-
-quanteda::kwic(tokens(toks), pattern = "Katze")
+# remember quanteda?
+# can you print our keywords in context for the words Hund and Ratte?
 
