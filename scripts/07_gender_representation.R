@@ -329,6 +329,9 @@ corpus_aggr_long %>%
   facet_wrap(. ~ sentiment) +
   ggtitle("Mean sentiment values in sentences with gendered words")
 
+
+
+
 # schematic representations
 
 table1::table1(~ sentiment_value | sentiment + gender_type, 
