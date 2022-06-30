@@ -1,3 +1,8 @@
+# research question:
+# i would be interested to see the possibilities of extracting data about word relations. 
+# For example i am interested in literary spaces so it would be interesting to compare the surroundings of certain words, 
+# like which words are found around the word 'city' and which around the word 'mountain'. 
+
 # word contexts
 # working together...
 
@@ -33,7 +38,7 @@ p <- udpipe(x = my_text, object = "german")
 load("scripts/samples/TS_corpus_small.RData")
 
 # first, let's find the appearances of a certain word in the text
-lemma_found <- which(corpus_small$lemma== "Auge")
+lemma_found <- which(corpus_small$lemma== "Stadt")
 
 ### Our Turn (1) - start
 
