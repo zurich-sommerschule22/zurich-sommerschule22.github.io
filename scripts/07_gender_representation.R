@@ -205,13 +205,10 @@ corpus_aggr_long %>%
 # mean sentiment value per year by gender
 
 corpus_aggr_long %>%
-  group_by(sentiment, pub_date, author_gender) %>%
+  group_by(sentiment, author_gender, pub_date) %>%
   summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
-  group_by(sentiment, pub_date, author_gender) %>%
-  ggplot(aes(x=sentiment, y=sentiment_value, fill=author_gender)) +
-  geom_boxplot() +
-  theme(legend.position = "right")
-
+  ggplot(aes(y=sentiment_value, x=pub_date, color=author_gender)) +
+  geom_smooth()
 
 
 # we might also be more interested in the represented gender, so how can we analyse it?
