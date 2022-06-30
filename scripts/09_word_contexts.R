@@ -1,16 +1,25 @@
-# research question:
+# The research question:
 # i would be interested to see the possibilities of extracting data about word relations. 
 # For example i am interested in literary spaces so it would be interesting to compare the surroundings of certain words, 
 # like which words are found around the word 'city' and which around the word 'mountain'. 
 
-# word contexts
-# working together...
+# Possible answers: 
+# 1. keyword in context
+# ...can be found in Voyant: https://voyant-tools.org/docs/#!/guide/contexts
+# 2. word collocations
+# ...good example: https://www.dwds.de/wp/?q=Stadt
+
+# but we need to do this in our corpus
+# using R
+# ...and working together... :)
 
 # we will be using the udpipe package
 install.packages("udpipe")
 library(udpipe)
 # ...and tidyverse
 library(tidyverse)
+
+# first, some examples of how udpipe works
 
 # choose a text
 my_text <- "To be or not to be. That is the question, my dear Watson."
@@ -34,17 +43,27 @@ p <- udpipe(x = my_text, object = "german")
 
 # load the corpus
 # already prepared by Giulia :)
-
 load("scripts/samples/TS_corpus_small.RData")
+
+# let's explore it a bit
+View(corpus_small)
+
+# how many books are there?
+corpus_small %>% 
+  select(doc_id) %>%
+  distinct()
+
+# now, we can start working on it!!
 
 # first, let's find the appearances of a certain word in the text
 lemma_found <- which(corpus_small$lemma== "Stadt")
+lemma_found
 
 ### Our Turn (1) - start
 
 # visualize keyword in context 
 for(i in 1:length(lemma_found)){
-    
+       
 }
 
 ### Our Turn (1) - end
