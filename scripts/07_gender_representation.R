@@ -210,6 +210,12 @@ corpus_aggr_long %>%
   ggplot(aes(y=sentiment_value, x=pub_date, color=author_gender)) +
   geom_smooth()
 
+corpus_aggr_long %>%
+  group_by(sentiment, author_gender, pub_date) %>%
+  summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
+  ggplot(aes(y=sentiment_value, x=pub_date, color=author_gender)) +
+  geom_point()
+
 
 # we might also be more interested in the represented gender, so how can we analyse it?
 
