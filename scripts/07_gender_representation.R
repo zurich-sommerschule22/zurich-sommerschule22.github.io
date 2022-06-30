@@ -3,7 +3,15 @@ library(tidyverse)
 library(readxl)
 library(tidytext)
 library(readtext)
+library(sjPlot)
 
+
+# what if we wanteed to see how gender plays a role in our coprus?
+
+# gender applies here to two aspects at least: author gender and represented gender.
+# how can we investigate these?
+
+# first we need our corpus
 
 # PREP -----------
 # if you erased your corpus, run this to recreate it:
@@ -45,9 +53,9 @@ corpus_token_SA <- readtext("TS_corpus_txt", encoding = "UTF-8")  %>%
               select(-word)
   )
 
-# stopwords list
+# our stopwords list
 
-stop_german <- tibble(word = stopwords::stopwords("de"))
+stop_german <- tibble(word = stopwords::stopwords("de")) 
 stop_german2 <- stop_german
 stop_german2$word <- str_to_sentence(stop_german2$word)
 stop_german <- bind_rows(stop_german, stop_german2)
@@ -55,7 +63,7 @@ remove(stop_german2)
 stop_german <- stop_german %>%
   rename(token = word)
 
-# proper names list
+# and our proper names list, which contains also gender information about names
 
 german_names <- read_delim("Vornamen_2020_Koeln_edited.csv", 
                            delim = ";", escape_double = FALSE, 
@@ -80,12 +88,16 @@ german_names <- german_names %>%
 
 remove(doubles_st)
 
+# now we can apply the names to our corpus, obtaining 
 
 corpus_token_SA <- corpus_token_SA %>%
   left_join(
-    german_names
-  )
+    german_names, by = "first_name"
+  ) %>%
+  rename(author_gender = gender)
 
+
+# we can see how much of our corpus has been written by authors of different genres
 
 corpus_token_SA_total <- corpus_token_SA %>%
   select(doc_id, sentence_id, token_id) %>%
@@ -93,48 +105,48 @@ corpus_token_SA_total <- corpus_token_SA %>%
   nrow()
 
 female_total <- corpus_token_SA %>%
-  select(doc_id, sentence_id, gender, token_id) %>%
+  select(doc_id, sentence_id, author_gender, token_id) %>%
   distinct() %>%
-  filter(gender == "w") %>%
+  filter(author_gender == "w") %>%
   nrow()
 
 male_total <- corpus_token_SA %>%
-  select(doc_id, sentence_id, gender, token_id) %>%
+  select(doc_id, sentence_id, author_gender, token_id) %>%
   distinct() %>%
-  filter(gender == "m") %>%
+  filter(author_gender == "m") %>%
   nrow()
 
 
 
-# proportion of gender by author
+# proportion of author_gender by author (how many authors x gender)
 
 corpus_token_SA %>%
-  select(author, gender) %>%
+  select(author, author_gender) %>%
   distinct() %>%
-  group_by(gender) %>%
+  group_by(author_gender) %>%
   count() %>%
-  ggplot(aes(y=n, x=gender, fill=gender, label=n)) +
+  ggplot(aes(y=n, x=author_gender, fill=author_gender, label=n)) +
   geom_col() +
   geom_text(nudge_y = 2)
 
 # over time
 
 corpus_token_SA %>%
-  select(author, gender, pub_date) %>%
+  select(author, author_gender, pub_date) %>%
   distinct() %>%
-  group_by(gender, pub_date) %>%
+  group_by(author_gender, pub_date) %>%
   count() %>%
-  ggplot(aes(y=n, x=pub_date, color=gender)) +
+  ggplot(aes(y=n, x=pub_date, color=author_gender)) +
   geom_smooth()
 
 
-
+#
 ###  corpus long -----
 
 corpus_aggr_long <- corpus_token_SA %>%
   select(collection,
          author,
-         gender,
+         author_gender,
          title,
          doc_id,
          pub_date,
@@ -149,7 +161,7 @@ corpus_aggr_long <- corpus_token_SA %>%
          ang_z)  %>%
   dplyr::group_by(collection, 
                   author,
-                  gender,
+                  author_gender,
                   title,
                   doc_id, 
                   sentence_id,
@@ -171,24 +183,14 @@ corpus_aggr_long <- corpus_token_SA %>%
                "Sentiart_hap_z_mean",
                "Sentiart_sad_z_mean",
                "Sentiart_surp_z_mean",
-               "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" ) %>%
-  rename(author_gender = gender)
-  
+               "Sentiart_ang_z_mean"), names_to = "sentiment", values_to = "sentiment_value" )
 
 
 # ------------
 
+# we can also see how author gender play a role in the sentiment that takes place in the corpus
 
-
-# german_sents <- syuzhet::get_sentiment_dictionary('nrc', language = "german") %>%
-#   select(-lang, -value)
-# 
-# 
-# corpus_token_SA <- corpus_token_SA %>%
-#   left_join(german_sents, by = c("token"="word"))
-
-
-# mean sentiment in corpus by author gender
+## mean sentiment in corpus by author gender
 
 corpus_aggr_long %>%
   group_by(author_gender, sentiment) %>%
@@ -206,54 +208,21 @@ corpus_aggr_long %>%
   group_by(sentiment, pub_date, author_gender) %>%
   summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
   group_by(sentiment, pub_date, author_gender) %>%
-  ggplot(aes(x=pub_date, y=sentiment_value, color=sentiment)) +
-  geom_point() +
-  geom_smooth() +
-  facet_grid(sentiment ~ author_gender) +
+  ggplot(aes(x=sentiment, y=sentiment_value, fill=author_gender)) +
+  geom_boxplot() +
   theme(legend.position = "right")
-  
 
+
+
+# we might also be more interested in the represented gender, so how can we analyse it?
+
+# again, we neeed to be able to identify names or words that are identificative of gender.
+# we decided here to look at the list of proper names, as well as words that are stereotipically considered as representative of a gender (apologies for the binary structure, for the purpose of this worshop we will have to limit to female/male dualism here.)
 
 # represented gender -----------------
 
 
-
-# 
-# corpus_aggr_long <- corpus_token_SA %>%
-#   filter(!is.na(sentiment)) %>%
-#   mutate(sentiment_value = 1) %>% 
-#   rename(author_gender = gender) %>%
-#   # mutate(sentiment_item = ifelse(sentiment_value == 1, token, NA)) %>%
-# 
-#   dplyr::group_by(author,
-#                   author_gender,
-#                   title,
-#                   pub_date,
-#                   doc_id, 
-#                   sentence_id,
-#                   sentence,
-#                   sentiment) %>%
-#   
-#   summarise(sentiment_value = sum(sentiment_value, na.rm = T),
-#             # sentiment_item = paste0(list(sentiment_item[!is.na(sentiment_item)]))
-#             )
-# 
-# 
-
-
-
-
-## proper names index ----------------
-
-
-stop_german <- tibble(word = stopwords::stopwords("de"))
-
-stop_german2 <- stop_german
-stop_german2$word <- str_to_sentence(stop_german2$word)
-stop_german <- bind_rows(stop_german, stop_german2)
-remove(stop_german2)
-
-
+## proper names index -----------
 
 ### FEMALE corpus --------
 
@@ -268,7 +237,7 @@ corpus_gender_female <- corpus_token_SA %>%
   distinct() %>%
   left_join(german_names %>%
               filter(gender == "w") %>%
-              anti_join(stop_german, by = c("first_name" = "word")) %>%
+              anti_join(stop_german, by = c("first_name" = "token")) %>%
               rename(name_gender = gender),
             by = c("token" = "first_name")) %>%
   filter(grepl("Frau", token) |
@@ -309,7 +278,7 @@ corpus_gender_male <- corpus_token_SA %>%
   distinct() %>%
   left_join(german_names %>%
               filter(gender == "m") %>%
-              anti_join(stop_german, by = c("first_name" = "word")) %>%
+              anti_join(stop_german, by = c("first_name" = "token")) %>%
               rename(name_gender = gender),
             by = c("token" = "first_name")) %>%
   filter(grepl("Herr", token) |
@@ -342,7 +311,7 @@ corpus_aggr_long <- corpus_aggr_long %>%
   left_join(corpus_gender)
 
 
-remove(german_names, german_sents)
+remove(german_names)
 
 # mean sentiment by represented gender (Sentiart)
 
@@ -368,12 +337,14 @@ table1::table1(~ sentiment_value | sentiment + author_gender,
 # and by author
 
 corpus_aggr_long %>%
-  group_by(author_gender, sentiment) %>%
+  filter(!is.na(gender_type)) %>%
+  group_by(author_gender, gender_type, sentiment) %>%
   summarise(sentiment_value = mean(sentiment_value, na.rm=T)) %>%
-  ggplot(aes(y=sentiment_value, x=author_gender, fill=author_gender, label=round(sentiment_value, 3))) +
+  ggplot(aes(y=sentiment_value, x=author_gender, fill=author_gender, 
+             label=round(sentiment_value, 3))) +
   geom_col(position="dodge") +
-  geom_text(nudge_y = -.2) +
-  facet_wrap(. ~ sentiment) +
+  geom_text() +
+  facet_wrap(gender_type ~ sentiment) +
   ggtitle("Mean sentiment values in sentences by author gender")
 
 
@@ -396,4 +367,30 @@ quanteda::kwic(tokens(toks), pattern = "Mann")
 
 
 head(tokens_ngrams(tokens(paste0(frau_kwic$pre, frau_kwic$post), remove_punct = TRUE)), 30)
+
+
+
+corpus_aggr_long %>%
+  filter(!is.na(gender_type)) %>%
+  group_by(title, sentiment, gender_type) %>%
+  summarise(gender_words_n = sum(gender_words_n),
+  sentiment_value = sum(sentiment_value)) %>%
+  ggplot((aes(x=gender_words_n, y=sentiment_value, color=gender_type))) +
+  geom_point() +
+  geom_smooth(color="black") +
+  scale_fill_sjplot() +
+  facet_grid(sentiment ~ gender_type, scales = "free_x")
+
+
+
+corpus_aggr_long %>%
+  filter(!is.na(gender_type)) %>%
+  group_by(title, sentiment, gender_type) %>%
+  summarise(gender_words_n = sum(gender_words_n),
+            sentiment_value = sum(sentiment_value)) %>%
+  ggplot((aes(x=gender_words_n, y=sentiment_value, color=gender_type))) +
+  geom_point() +
+  geom_smooth(color="black") +
+  scale_fill_sjplot() +
+  facet_grid(sentiment ~ gender_type, scales = "free_x")
 
