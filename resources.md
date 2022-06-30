@@ -32,6 +32,7 @@ title: resources
 - [R Intro pdf tutorial](resources/R_RStudio_Basics.pdf)
 - [R Intro online tutorial](https://moderndive.netlify.app/1-getting-started.html)
 - [Text Mining with R](https://www.tidytextmining.com/)
+- [Quanteda Package](https://tutorials.quanteda.io/)
 
 ### Recommended extra tools
 - [R Markdown](https://bookdown.org/yihui/rmarkdown/)
